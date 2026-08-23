@@ -11,14 +11,23 @@
       "bundleIdentifier": "com.aashishkevat.fraudfacedetector"
     },
     "android": {
-      "package": "com.aashishkevat.fraudfacedetector",
-      "compileSdkVersion": 34,
-      "targetSdkVersion": 34,
-      "buildToolsVersion": "34.0.0"
+      "package": "com.aashishkevat.fraudfacedetector"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 34,
+            "targetSdkVersion": 34,
+            "buildToolsVersion": "34.0.0"
+          }
+        }
+      ]
+    ],
     "extra": {
       "eas": {
         "projectId": "f068a502-d9d5-463b-9cb8-83f27a994f0a"

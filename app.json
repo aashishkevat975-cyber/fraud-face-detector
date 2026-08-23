@@ -3,7 +3,6 @@
     "name": "Fraud Face Detector",
     "slug": "fraud-face-detector",
     "version": "1.0.0",
-    "owner": "aashishdev99s-team",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
@@ -28,7 +27,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "914e41f4-765f-4bc1-b7ca-9f045f6ac506"
+        "projectId": "f868a502-d9d5-463b-9cb8-83f27a994f8a"
       }
     },
     "sdkVersion": "51.0.0",

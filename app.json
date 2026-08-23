@@ -26,8 +26,13 @@
     },
     "extra": {
       "eas": {
-        "projectId": "frode-face-detector"
+        "projectId": "de0c0e94-8af8-4599-8766-2334aec39f5d"
       }
-    }
+    },
+    "sdkVersion": "51.0.0",
+    "platforms": [
+      "ios",
+      "android"
+    ]
   }
 }

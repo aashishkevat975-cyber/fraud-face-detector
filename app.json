@@ -3,28 +3,26 @@
     "name": "Fraud Face Detector",
     "slug": "frode-face-detector",
     "version": "1.0.0",
-    "owner": "aashishkevat555s-team",
     "orientation": "portrait",
+    "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0d1117"
+    },
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.aashishkevat.fraudfacedetector"
+      "supportsTablet": true
     },
     "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0d1117"
+      },
       "package": "com.aashishkevat.fraudfacedetector"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "f068a502-d9d5-463b-9cb8-83f27a994f0a"
-      }
-    },
-    "sdkVersion": "51.0.0",
-    "platforms": [
-      "ios",
-      "android"
-    ]
+    }
   }
 }

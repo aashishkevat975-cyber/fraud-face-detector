@@ -5,14 +5,14 @@
     "version": "1.0.0",
     "owner": "aashishkevat555s-team",
     "orientation": "portrait",
+    "icon": "./icon.png",
     "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
     "android": {
-      "package": "com.aashishkevat.fraudfacedetector"
+      "package": "com.aashishkevat.fraudfacedetector",
+      "adaptiveIcon": {
+        "foregroundImage": "./icon.png",
+        "backgroundColor": "#ffffff"
+      }
     },
     "web": {
       "bundler": "metro"

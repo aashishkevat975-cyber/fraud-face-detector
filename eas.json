@@ -19,5 +19,10 @@
   },
   "submit": {
     "production": {}
+  },
+  "extra": {
+    "eas": {
+      "projectId": "aashish-project-id"
+    }
   }
 }

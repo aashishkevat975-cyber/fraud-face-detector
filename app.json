@@ -6,6 +6,11 @@
     "owner": "aashishkevat555s-team",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
     "android": {
       "package": "com.aashishkevat.fraudfacedetector"
     },

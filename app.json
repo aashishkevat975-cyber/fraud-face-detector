@@ -3,6 +3,7 @@
     "name": "Fraud Face Detector",
     "slug": "fraud-face-detector",
     "version": "1.0.0",
+    "owner": "aashishkevat555s-team",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -35,4 +36,6 @@
       "android"
     ]
   }
+}
+}
 }

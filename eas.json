@@ -1,6 +1,7 @@
 {
   "cli": {
-    "version": ">= 5.0.0"
+    "version": ">= 5.0.0",
+    "appVersionSource": "remote"
   },
   "build": {
     "development": {
@@ -18,5 +19,10 @@
   },
   "submit": {
     "production": {}
+  },
+  "extra": {
+    "eas": {
+      "projectId": "frode-face-detector"
+    }
   }
 }

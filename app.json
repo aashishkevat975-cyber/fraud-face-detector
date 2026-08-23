@@ -1,23 +1,37 @@
 {
   "expo": {
     "name": "Fraud Face Detector",
-    "slug": "frode-face-detector",
-    "owner": "aashishdev99s-team",
+    "slug": "fraud-face-detector",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./icon.png",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
     "splash": {
-      "image": "./icon.png",
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#0d1117"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.aashishkevat.fraudfacedetector"
     },
     "android": {
-      "package": "com.aashish.fraudfacedetector"
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0d1117"
+      },
+      "package": "com.aashishkevat.fraudfacedetector"
     },
-    "extra": {
-      "eas": {
-        "projectId": "914e41f4-765f-4bc1-b7ca-9f045f6ac506"
-      }
-    }
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "react-native-google-mobile-ads",
+        {
+          "androidAppId": "ca-app-pub-1675872523636331~1932744321"
+        }
+      ]
+    ]
   }
 }

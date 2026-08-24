@@ -25,6 +25,11 @@
     "web": {
       "bundler": "metro"
     },
+    "extra": {
+      "eas": {
+        "projectId": "a3f82b71-0000-0000-0000-000000000000"
+      }
+    },
     "plugins": [
       [
         "expo-image-picker",

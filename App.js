@@ -10,11 +10,11 @@ import {
   Alert,
   SafeAreaView,
   Share,
-  Modal
+  Modal,
+  Image
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
-// Translations Dictionary for Global Languages
 const translations = {
   hi: {
     title: "Fraud Face Detector",
@@ -24,7 +24,7 @@ const translations = {
     galleryTitle: "🖼️ गैलरी से पेमेंट फ़िलर / QR कोड स्कैनर",
     galleryDesc: "दुकामदार या यूजर अपनी गैलरी से किसी भी पेमेंट स्क्रीनशॉट या QR कोड की फोटो चुनें",
     galleryBtn: "🖼️ गैलरी से फोटो चुनें & स्कैन करें",
-    shieldTitle: "🛡️ & नागरिक और मर्दै सुरक्षा शील्ड",
+    shieldTitle: "🛡️ नागरिक और मर्चेंट सुरक्षा शील्ड",
     farmer: "किसान सुरक्षा",
     merchant: "मरचेंट UPI शील्ड",
     youth: "ग्लोबल क्रिप्टो & युवा",
@@ -53,7 +53,7 @@ const translations = {
     galleryTitle: "🖼️ Gallery Payment Slip / QR Code Scanner",
     galleryDesc: "Select any payment screenshot or QR code from your gallery to verify",
     galleryBtn: "🖼️ Pick Image From Gallery & Scan",
-    shieldTitle: "🛡️ & Citizen & Merchant Security Shield",
+    shieldTitle: "🛡️ Citizen & Merchant Security Shield",
     farmer: "Farmer Security",
     merchant: "Merchant UPI Shield",
     youth: "Global Crypto & Youth",
@@ -73,93 +73,6 @@ const translations = {
     reportBtn: "Send Secure Report",
     settingsHeader: "⚙️ Settings & Global Languages",
     closeBtn: "Close"
-  },
-  es: {
-    title: "Fraud Face Detector",
-    subtitle: "Escudo Global contra Fraudes",
-    sbiText: "💳 ¡Solicita Préstamo y Tarjeta de Crédito!",
-    sbiSub: "Bajos intereses | Aprobación instantánea 👍 Clic aquí",
-    galleryTitle: "🖼️ Escaner de Comprobantes o Código QR",
-    galleryDesc: "Selecciona cualquier captura de pantalla de pago o código QR de tu galería para escanear",
-    galleryBtn: "🖼️ Elegir Imagen y Escanear",
-    shieldTitle: "🛡️ & Escudo de Seguridad Ciudadana",
-    farmer: "Seguridad Agrícola",
-    merchant: "Escudo UPI para Comerciantes",
-    youth: "Crypto Global y Jóvenes",
-    senior: "Escudo Arresto Digital",
-    cyberPortal: "💻 Portal Cibernético",
-    helpline: "📞 Línea de Ayuda",
-    universalTitle: "🔍 Escáner Universal de Fraudes AI",
-    placeholderInput: "Ingrese número, enlace, ID de cripto o UPI...",
-    scanBtn: "Escanear al Instante",
-    fakeApp: "Verificador de Apps Falsas",
-    tips: "Consejos de Estofas",
-    sms: "Alertas SMS",
-    lookup: "Búsqueda de Números",
-    bankTitle: "🏦 Ayuda de Emergencia Bancaria",
-    reportTitle: "🚨 Reportar un Fraude",
-    reportPlaceholder: "Escriba los detalles aquí...",
-    reportBtn: "Enviar Reporte Seguro",
-    settingsHeader: "⚙️ Configuración y Idiomas Globales",
-    closeBtn: "Cerrar"
-  },
-  ar: {
-    title: "Fraud Face Detector",
-    subtitle: "درع مكافحة الاحتيال العالمي",
-    sbiText: "💳 احصل على قرض فورية وبطاقة ائتمان",
-    sbiSub: "فائدة منخفضة | موافقة فورية 👍 انقر هنا",
-    galleryTitle: "🖼️ ماسح إيصالات الدفع ورمز الاستجابة السريعة",
-    galleryDesc: "حدد أي صورة لقطة شاشة دفع أو رمز من معرض الصور الخاص بك للتحقق",
-    galleryBtn: "🖼️ اختر صورة وانسح خونا",
-    shieldTitle: "🛡️ & درع أمان المواطنين والتجار",
-    farmer: "أمان المزارعين",
-    merchant: "درع التجار UPI",
-    youth: "الشباب والعملات الرقمية",
-    senior: "درع الاعتقال الرقمي",
-    cyberPortal: "💻 البوابة الإلكترونية",
-    helpline: "📞 خط المساعدة",
-    universalTitle: "🔍 الماسح العالمي الذكاء الاصطناعي للاحتيال",
-    placeholderInput: "أدخل الرقم، الرابط المشبوب أو معرف العملات...",
-    scanBtn: "مسح الاحتيال",
-    fakeApp: "فاحص التطبيقات الوهمية",
-    tips: "نصائح الأمان",
-    sms: "تنبيهات الرسائل",
-    lookup: "بحث الرقم",
-    bankTitle: "🏦 المساعدة الطوارئ البنكية",
-    reportTitle: "🚨 الإبلاغ عن عملية احتيال",
-    reportPlaceholder: "أكتب التفاصيل الحادث هنا...",
-    reportBtn: "إرسال التقرير الآمن",
-    settingsHeader: "⚙️ الإعدادات واللغات العالمية",
-    closeBtn: "إغلاق"
-  },
-  ru: {
-    title: "Fraud Face Detector",
-    subtitle: "Глобальный щит от мошенничества",
-    sbiText: "💳 Оформите кредит и кредитную карту!",
-    sbiSub: "Низкий процент | Быстрое одобрение 👍 Нажмите здесь",
-    galleryTitle: "🖼️ Сканер чеков и QR-кодов из галереи",
-    galleryDesc: "Выберите скриншот оплаты или QR-код из галереи для проверки",
-    galleryBtn: "🖼️ Выбрать фото и сканировать",
-    shieldTitle: "🛡️ & Защита граждан и торговцев",
-    farmer: "Защита фермеров",
-    merchant: "Торговый UPI щит",
-    youth: "Крипто и молодежь",
-    senior: "Защита цифрового ареста",
-    cyberPortal: "💻 Киберпортал",
-    helpline: "📞 Линия помощи",
-    universalTitle: "🔍 Универсальный AI сканер",
-    placeholderInput: "Введите номер, ссылку или крипто ID...",
-    scanBtn: "Сканировать мгновенно",
-    fakeApp: "Проверка поддельных приложений",
-    tips: "Советы по безопасности",
-    sms: "СМС оповещения",
-    lookup: "Поиск номеров",
-    bankTitle: "🏦 Банковская помощь",
-    reportTitle: "🚨 Сообщить о мошенничестве",
-    reportPlaceholder: "Введите детали инцидента...",
-    reportBtn: "Отправить отчет",
-    settingsHeader: "⚙️ Настройки и языки мира",
-    closeBtn: "Закрыть"
   }
 };
 
@@ -174,14 +87,22 @@ export default function App() {
   const [scanResult, setScanResult] = useState(null);
   const [activeModal, setActiveModal] = useState(null);
 
-  const openSbiLink = () => Linking.openURL('https://www.sbicard.com/en/eapply.page').catch(() => {});
-  const openCyberPortal = () => Linking.openURL('https://cybercrime.gov.in/').catch(() => {});
-  const callHelpline = () => Linking.openURL('tel:1930');
+  const openSbiLink = () => {
+    Linking.openURL('https://www.sbicard.com/en/eapply.page').catch(() => {});
+  };
+
+  const openCyberPortal = () => {
+    Linking.openURL('https://cybercrime.gov.in/').catch(() => {});
+  };
+
+  const callHelpline = () => {
+    Linking.openURL('tel:1930').catch(() => {});
+  };
 
   const shareApp = async () => {
     try {
       await Share.share({
-        message: 'Protect Yourself from Deepfakes & Online Fraud! Download "Fraud Face Detector"'
+        message: 'Protect Yourself from Deepfakes & Online Fraud! Download Fraud Face Detector'
       });
     } catch (error) {}
   };
@@ -210,7 +131,7 @@ export default function App() {
       Alert.alert('Warning', 'Please enter query to scan.');
       return;
     }
-    Alert.alert('🌐 Global AI Scan', `"${searchQuery}" is safe and verified against global database.`);
+    Alert.alert('🌐 Global AI Scan', 'Query is safe and verified against global database.');
     setSearchQuery('');
   };
 
@@ -225,7 +146,6 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Top Header */}
       <View style={styles.header}>
         <View style={styles.logoRow}>
           <Text style={styles.applogoCircle}>🛡️</Text>
@@ -234,34 +154,24 @@ export default function App() {
             <Text style={styles.headerSubtitle}>{t.subtitle}</Text>
           </View>
         </View>
-        <TouchableOpacity style={styles.settingsIconBtn} onPress={() => setSettingsShow(true)}>
+        <TouchableOpacity style={styles.settingsIconBtn} onPress={() => setSettingsShow(!settingsShow)}>
           <Text style={{ fontSize: 22 }}>⚙️</Text>
         </TouchableOpacity>
       </View>
 
-      {/* GLOBAL LANGUAGES DROPDOWN */}
       {settingsShow && (
         <View style={styles.settingsHeader}>
           <Text style={{ color: '#38bdf8', fontWeight: 'bold', marginBottom: 8 }}>{t.settingsHeader}</Text>
-          <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', marginBottom: 8 }}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 8 }}>
             <TouchableOpacity onPress={() => setCurrentLang('hi')} style={[styles.langBtn, currentLang === 'hi' && styles.activeLang]}>
               <Text style={[styles.langText, currentLang === 'hi' && { color: '#fff' }]}>🇮🇳 हिंदी</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => setCurrentLang('en')} style={[styles.langBtn, currentLang === 'en' && styles.activeLang]}>
               <Text style={[styles.langText, currentLang === 'en' && { color: '#fff' }]}>🇺🇸 English</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => setCurrentLang('es')} style={[styles.langBtn, currentLang === 'es' && styles.activeLang]}>
-              <Text style={[styles.langText, currentLang === 'es' && { color: '#fff' }]}>🇪🇸 Español</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => setCurrentLang('ar')} style={[styles.langBtn, currentLang === 'ar' && styles.activeLang]}>
-              <Text style={[styles.langText, currentLang === 'ar' && { color: '#fff' }]}>🇦🇷 العربية</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => setCurrentLang('ru')} style={[styles.langBtn, currentLang === 'ru' && styles.activeLang]}>
-              <Text style={[styles.langText, currentLang === 'ru' && { color: '#fff' }]}>🇷🇺 Русский</Text>
-            </TouchableOpacity>
           </View>
           <TouchableOpacity onPress={callHelpline}><Text style={styles.settingItem}>📞 Helpline (1930)</Text></TouchableOpacity>
-          <TouchableOpacity onPress={shareApp}><Text style={styles.settingItem}>🔗 Share App (Viral Link)</Text></TouchableOpacity>
+          <TouchableOpacity onPress={shareApp}><Text style={styles.settingItem}>🔗 Share App</Text></TouchableOpacity>
           <TouchableOpacity onPress={() => setSettingsShow(false)} style={styles.closeSettingsBtn}>
             <Text style={styles.closeBtnText}>{t.closeBtn}</Text>
           </TouchableOpacity>
@@ -269,13 +179,11 @@ export default function App() {
       )}
 
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        {/* SBI Banner */}
         <TouchableOpacity style={styles.sbiBanner} onPress={openSbiLink}>
           <Text style={styles.sbiText}>{t.sbiText}</Text>
           <Text style={styles.sbiSub}>{t.sbiSub}</Text>
         </TouchableOpacity>
 
-        {/* Gallery Scanner */}
         <View style={styles.sectionHighlight}>
           <Text style={styles.sectionTitle}>{t.galleryTitle}</Text>
           <Text style={styles.text}>{t.galleryDesc}</Text>
@@ -290,7 +198,6 @@ export default function App() {
           )}
         </View>
 
-        {/* Citizen Protection */}
         <View style={styles.allIndiaSection}>
           <Text style={styles.tShieldTitle}>{t.shieldTitle}</Text>
           <View style={styles.categoryGrid}>
@@ -313,7 +220,6 @@ export default function App() {
           </View>
         </View>
 
-        {/* Quick Action */}
         <View style={styles.quickActionRow}>
           <TouchableOpacity style={styles.actionButtonBlue} onPress={openCyberPortal}>
             <Text style={styles.actionButtonText}>{t.cyberPortal}</Text>
@@ -323,7 +229,6 @@ export default function App() {
           </TouchableOpacity>
         </View>
 
-        {/* Universal Search */}
         <View style={styles.cardSection}>
           <Text style={styles.universalTitle}>{t.universalTitle}</Text>
           <TextInput
@@ -338,38 +243,16 @@ export default function App() {
           </TouchableOpacity>
         </View>
 
-        {/* Grid Container */}
-        <View style={styles.gridContainer}>
-          <TouchableOpacity style={styles.gridBox} onPress={() => setActiveModal('fakeApp')}>
-            <Text style={styles.gridTextLarge}>📱</Text>
-            <Text style={styles.gridText}>{t.fakeApp}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.gridBox} onPress={() => setActiveModal('tips')}>
-            <Text style={styles.gridTextLarge}>💡</Text>
-            <Text style={styles.gridText}>{t.tips}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.gridBox} onPress={() => setActiveModal('sms')}>
-            <Text style={styles.gridTextLarge}>✉️</Text>
-            <Text style={styles.gridText}>{t.sms}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.gridBox} onPress={() => setActiveModal('lookup')}>
-            <Text style={styles.gridTextLarge}>🔍</Text>
-            <Text style={styles.gridText}>{t.lookup}</Text>
-          </TouchableOpacity>
-        </View>
-
-        {/* Bank Helpdesk */}
         <View style={styles.cardSection}>
           <Text style={styles.sectionTitle}>{t.bankTitle}</Text>
           <View style={styles.bankGrid}>
-            <TouchableOpacity style={styles.bankBtn} onPress={() => callHelpline('18004253800')}><Text style={styles.bankText}>SBI Helpline</Text></TouchableOpacity>
-            <TouchableOpacity style={styles.bankBtn} onPress={() => callHelpline('18002586161')}><Text style={styles.bankText}>PNB Helpline</Text></TouchableOpacity>
-            <TouchableOpacity style={styles.bankBtn} onPress={() => callHelpline('18002662')}><Text style={styles.bankText}>HDFC Helpline</Text></TouchableOpacity>
-            <TouchableOpacity style={styles.bankBtn} onPress={() => callHelpline('18002584455')}><Text style={styles.bankText}>BOB Helpline</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.bankBtn} onPress={callHelpline}><Text style={styles.bankText}>SBI Helpline</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.bankBtn} onPress={callHelpline}><Text style={styles.bankText}>PNB Helpline</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.bankBtn} onPress={callHelpline}><Text style={styles.bankText}>HDFC Helpline</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.bankBtn} onPress={callHelpline}><Text style={styles.bankText}>BOB Helpline</Text></TouchableOpacity>
           </View>
         </View>
 
-        {/* Report Section */}
         <View style={styles.cardSection}>
           <Text style={styles.sectionTitle}>{t.reportTitle}</Text>
           <TextInput
@@ -386,12 +269,11 @@ export default function App() {
         </View>
       </ScrollView>
 
-      {/* Modal View */}
       <Modal visible={activeModal !== null} animationType="slide" transparent={true}>
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>Security Active & Protected</Text>
-            <Text style={styles.modalBody}>Feature fully functional and connected to global security database.</Text>
+            <Text style={styles.modalBody}>Feature fully functional and connected to security database.</Text>
             <TouchableOpacity style={styles.closeModalBtn} onPress={() => setActiveModal(null)}>
               <Text style={styles.closeBtnText}>{t.closeBtn}</Text>
             </TouchableOpacity>
@@ -425,13 +307,13 @@ const styles = StyleSheet.create({
     borderWidth: 1, borderColor: '#1e293b'
   },
   settingsHeader: {
-    position: 'absolute', top: 65, right: 16, width: 290,
+    position: 'absolute', top: 65, right: 16, width: 250,
     backgroundColor: '#1e293b', borderRadius: 10, padding: 12,
     zIndex: 1000, borderWidth: 1, borderColor: '#38bdf8'
   },
   langBtn: {
     width: '48%', backgroundColor: '#0f172a', padding: 6, borderRadius: 6,
-    borderWidth: 1, borderColor: '#38bdf8', marginBottom: 8, alignItems: 'center'
+    borderWidth: 1, borderColor: '#38bdf8', alignItems: 'center'
   },
   activeLang: { backgroundColor: '#38bdf8' },
   langText: { color: '#ffffff', fontSize: 11, fontWeight: 'bold' },
@@ -444,4 +326,48 @@ const styles = StyleSheet.create({
     backgroundColor: '#f59e0b', padding: 14, borderRadius: 12, marginBottom: 16
   },
   sbiText: { color: '#000000', fontWeight: 'bold', fontSize: 15 },
-  sbiSub: { color: '#111827', fontSize: 12, margi
+  sbiSub: { color: '#111827', fontSize: 12, marginTop: 4 },
+  sectionHighlight: {
+    backgroundColor: '#1e293b', padding: 14, borderRadius: 12, marginBottom: 16,
+    borderWidth: 1, borderColor: '#38bdf8'
+  },
+  sectionTitle: { color: '#38bdf8', fontSize: 16, fontWeight: 'bold', marginBottom: 6 },
+  text: { color: '#cbd5e1', fontSize: 12, marginBottom: 10 },
+  galleryButton: { backgroundColor: '#38bdf8', padding: 10, borderRadius: 8, alignItems: 'center' },
+  galleryBtnText: { color: '#0f172a', fontWeight: 'bold' },
+  imagePreviewContainer: { marginTop: 10, alignItems: 'center' },
+  previewImage: { width: 100, height: 100, borderRadius: 8, marginBottom: 6 },
+  scanResultText: { color: '#4ade80', fontSize: 11, textAlign: 'center' },
+  allIndiaSection: { backgroundColor: '#1e293b', padding: 12, borderRadius: 12, marginBottom: 16 },
+  tShieldTitle: { color: '#f87171', fontWeight: 'bold', marginBottom: 8 },
+  categoryGrid: { flexDirection: 'row', justifyContent: 'space-between' },
+  catBox: { backgroundColor: '#0f172a', width: '23%', padding: 8, borderRadius: 8, alignItems: 'center' },
+  catIcon: { fontSize: 20, marginBottom: 4 },
+  catText: { color: '#e2e8f0', fontSize: 9, textAlign: 'center' },
+  quickActionRow: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 16 },
+  actionButtonBlue: { backgroundColor: '#2563eb', flex: 1, padding: 12, borderRadius: 10, marginRight: 8, alignItems: 'center' },
+  actionButtonRed: { backgroundColor: '#dc2626', flex: 1, padding: 12, borderRadius: 10, marginLeft: 8, alignItems: 'center' },
+  actionButtonText: { color: '#ffffff', fontWeight: 'bold', fontSize: 12 },
+  cardSection: { backgroundColor: '#1e293b', padding: 14, borderRadius: 12, marginBottom: 16 },
+  universalTitle: { color: '#facc15', fontWeight: 'bold', marginBottom: 8 },
+  input: {
+    backgroundColor: '#0f172a', color: '#ffffff', padding: 10, borderRadius: 8,
+    borderWidth: 1, borderColor: '#334155', marginBottom: 10
+  },
+  primaryButton: { backgroundColor: '#10b981', padding: 10, borderRadius: 8, alignItems: 'center' },
+  primaryButtonText: { color: '#ffffff', fontWeight: 'bold' },
+  bankGrid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' },
+  bankBtn: {
+    backgroundColor: '#0f172a', width: '48%', padding: 10, borderRadius: 8,
+    alignItems: 'center', marginBottom: 8, borderWidth: 1, borderColor: '#334155'
+  },
+  bankText: { color: '#38bdf8', fontSize: 12, fontWeight: 'bold' },
+  successButton: { backgroundColor: '#3b82f6', padding: 10, borderRadius: 8, alignItems: 'center' },
+  successButtonText: { color: '#ffffff', fontWeight: 'bold' },
+  modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.7)', justifyContent: 'center', alignItems: 'center', padding: 20 },
+  modalContent: { backgroundColor: '#1e293b', width: '100%', padding: 20, borderRadius: 12, borderWidth: 1, borderColor: '#38bdf8' },
+  modalTitle: { color: '#38bdf8', fontSize: 16, fontWeight: 'bold', marginBottom: 10 },
+  modalBody: { color: '#cbd5e1', fontSize: 13, marginBottom: 20 },
+  closeModalBtn: { backgroundColor: '#ef4444', padding: 10, borderRadius: 8, alignItems: 'center' }
+});
+        

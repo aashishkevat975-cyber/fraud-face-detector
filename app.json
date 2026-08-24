@@ -4,26 +4,16 @@
     "slug": "fraud-face-detector",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
     "extra": {
       "eas": {
         "projectId": "5446927b-166c-4de8-86c3-b83c97ccc369"
       }
     },
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
     "ios": {
       "supportsTablet": true
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
       "package": "com.aashish.fraudfacedetector"
     },
     "web": {

@@ -1,7 +1,8 @@
 {
   "expo": {
     "name": "Fraud Face Detector",
-    "slug": "fraud-face-detector",
+    "slug": "fraud-kevats-cyber-xyz",
+    "owner": "aashishkevat555",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

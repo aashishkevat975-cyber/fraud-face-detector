@@ -10,8 +10,9 @@
         "projectId": "5446927b-166c-4de8-86c3-b83c97ccc369"
       }
     },
+    "icon": "./icon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -22,7 +23,7 @@
       "package": "com.aashish.fraudfacedetector"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./favicon.png"
     }
   }
 }

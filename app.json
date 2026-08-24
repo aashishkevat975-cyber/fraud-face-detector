@@ -10,6 +10,11 @@
         "projectId": "5446927b-166c-4de8-86c3-b83c97ccc369"
       }
     },
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
     "ios": {
       "supportsTablet": true
     },

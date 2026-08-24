@@ -3,34 +3,32 @@
     "name": "Fraud Face Detector",
     "slug": "fraud-face-detector",
     "version": "1.0.0",
-    "owner": "aashishkevat555s-team",
     "orientation": "portrait",
-    "icon": "./icon.png",
-    "userInterfaceStyle": "light",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
     "splash": {
-      "image": "./splash.png",
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#0b0f19"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.aashishkevat.fraudfacedetector"
     },
     "android": {
-      "package": "com.aashishkevat.fraudfacedetector",
       "adaptiveIcon": {
-        "foregroundImage": "./icon.png",
-        "backgroundColor": "#ffffff"
-      }
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0b0f19"
+      },
+      "package": "com.aashishkevat.fraudfacedetector"
     },
     "web": {
-      "bundler": "metro"
+      "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "de0c0e94-8af8-4599-8766-2334aec39f5d"
+        "projectId": "fbf81795-251d-40df-adcf-3df84ec940b2"
       }
-    },
-    "sdkVersion": "51.0.0",
-    "platforms": [
-      "ios",
-      "android"
-    ]
+    }
   }
 }

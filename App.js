@@ -1,373 +1,285 @@
 import React, { useState } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  ScrollView,
-  Linking,
-  TextInput,
-  Alert,
-  SafeAreaView,
-  Share,
-  Modal,
-  Image
-} from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
-
-const translations = {
-  hi: {
-    title: "Fraud Face Detector",
-    subtitle: "ग्लोबल साइबर & UPI फ्रॉड शील्ड",
-    sbiText: "💳 तुरंत लोन & SBI क्रेडिट कार्ड अप्लाई करें",
-    sbiSub: "कम ब्याज दर | आसान किस्तें | मिनटों में अप्रूवल पाएं 👍 क्लिक करें",
-    galleryTitle: "🖼️ गैलरी से पेमेंट फ़िलर / QR कोड स्कैनर",
-    galleryDesc: "दुकामदार या यूजर अपनी गैलरी से किसी भी पेमेंट स्क्रीनशॉट या QR कोड की फोटो चुनें",
-    galleryBtn: "🖼️ गैलरी से फोटो चुनें & स्कैन करें",
-    shieldTitle: "🛡️ नागरिक और मर्चेंट सुरक्षा शील्ड",
-    farmer: "किसान सुरक्षा",
-    merchant: "मरचेंट UPI शील्ड",
-    youth: "ग्लोबल क्रिप्टो & युवा",
-    senior: "डिजिटल अरेस्ट सुरक्षा",
-    cyberPortal: "💻 साइबर पोर्टल",
-    helpline: "📞 1930 हेल्पलाईन",
-    universalTitle: "🔍 यूनिवर्सल AI फ्रॉड & लिंक स्कैनर",
-    placeholderInput: "नंबर, संसधि लिंक, क्रिप्टो ID या UPI ID लिखें...",
-    scanBtn: "स्कैन (Instant Global Scan)",
-    fakeApp: "फ़ेक एप्स चेकर",
-    tips: "सेफ़्टी टिप्स",
-    sms: "वायरल SMS अलर्ट",
-    lookup: "नंबर लुकअप",
-    bankTitle: "🏦 बैंक इमरजेंसी हेल्पडेस्क",
-    reportTitle: "🚨 फ्रॉड रिपोर्ट दर्ज करें",
-    reportPlaceholder: "घटना का विवरण यहाँ लिखें...",
-    reportBtn: "सेंड सिक्योर रिपोर्ट",
-    settingsHeader: "⚙️ सेटिंग्स & ग्लोबल भाषा (Languages)",
-    closeBtn: "बंद करें"
-  },
-  en: {
-    title: "Fraud Face Detector",
-    subtitle: "Global Cyber & UPI Fraud Shield",
-    sbiText: "💳 Apply for Instant Loan & SBI Credit Card",
-    sbiSub: "Low interest | Easy EMIs | Instant approval 👍 Click Here",
-    galleryTitle: "🖼️ Gallery Payment Slip / QR Code Scanner",
-    galleryDesc: "Select any payment screenshot or QR code from your gallery to verify",
-    galleryBtn: "🖼️ Pick Image From Gallery & Scan",
-    shieldTitle: "🛡️ Citizen & Merchant Security Shield",
-    farmer: "Farmer Security",
-    merchant: "Merchant UPI Shield",
-    youth: "Global Crypto & Youth",
-    senior: "Digital Arrest Shield",
-    cyberPortal: "💻 Cyber Portal",
-    helpline: "📞 1930 Helpline",
-    universalTitle: "🔍 Universal AI Fraud & Link Scanner",
-    placeholderInput: "Enter number, suspicious link, crypto ID or UPI ID...",
-    scanBtn: "Scan (Instantly Global Scan)",
-    fakeApp: "Fake App Checker",
-    tips: "Safety Tips",
-    sms: "Viral SMS Alerts",
-    lookup: "Number Lookup",
-    bankTitle: "🏦 Bank Emergency Helpdesk",
-    reportTitle: "🚨 Report a Fraud",
-    reportPlaceholder: "Write incident details here...",
-    reportBtn: "Send Secure Report",
-    settingsHeader: "⚙️ Settings & Global Languages",
-    closeBtn: "Close"
-  }
-};
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Linking, Modal } from 'react-native';
+import { Ionicons, MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
 
 export default function App() {
-  const [currentLang, setCurrentLang] = useState('hi');
-  const t = translations[currentLang] || translations.hi;
+  const [activeTab, setActiveTab] = useState('Home'); // Home, Search, Scan, Alerts, History
+  const [language, setLanguage] = useState('HI');
+  const [modalMessage, setModalMessage] = useState('');
+  const [infoModalVisible, setInfoModalVisible] = useState(false);
 
-  const [searchQuery, setSearchQuery] = useState('');
-  const [reportText, setReportText] = useState('');
-  const [settingsShow, setSettingsShow] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [scanResult, setScanResult] = useState(null);
-  const [activeModal, setActiveModal] = useState(null);
-
-  const openSbiLink = () => {
-    Linking.openURL('https://www.sbicard.com/en/eapply.page').catch(() => {});
+  const dialCall = (number) => {
+    Linking.openURL(`tel:${number}`);
   };
 
-  const openCyberPortal = () => {
-    Linking.openURL('https://cybercrime.gov.in/').catch(() => {});
+  const handleFeatureClick = (title) => {
+    setModalMessage(`Global Security Active: ${title}. Protecting against domestic & international frauds.`);
+    setInfoModalVisible(true);
   };
 
-  const callHelpline = () => {
-    Linking.openURL('tel:1930').catch(() => {});
-  };
+  // Render content based on Bottom Navigation Tab
+  const renderTabContent = () => {
+    switch (activeTab) {
+      case 'Home':
+        return (
+          <ScrollView contentContainerStyle={styles.scrollContent}>
+            <View style={styles.alertBanner}>
+              <Text style={styles.alertText}>🚨 Global AI & Cyber Scam Protection</Text>
+              <Text style={styles.alertSubText}>India & International Helplines Active.</Text>
+            </View>
 
-  const shareApp = async () => {
-    try {
-      await Share.share({
-        message: 'Protect Yourself from Deepfakes & Online Fraud! Download Fraud Face Detector'
-      });
-    } catch (error) {}
-  };
+            <Text style={styles.sectionHeading}>🏦 Bank Emergency Helplines (India)</Text>
+            <View style={styles.bankGrid}>
+              <TouchableOpacity style={styles.bankCard} onPress={() => dialCall('1800123456')}>
+                <Text style={styles.bankText}>SBI Helpline</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.bankCard} onPress={() => dialCall('18001802222')}>
+                <Text style={styles.bankText}>PNB Helpline</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.bankCard} onPress={() => dialCall('18002586161')}>
+                <Text style={styles.bankText}>HDFC Helpline</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.bankCard} onPress={() => dialCall('18002584455')}>
+                <Text style={styles.bankText}>BOB Helpline</Text>
+              </TouchableOpacity>
+            </View>
 
-  const pickImageAndScan = async () => {
-    let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (!permissionResult.granted) {
-      Alert.alert('Permission', 'Gallery access required.');
-      return;
+            <View style={styles.quickActionRow}>
+              <TouchableOpacity style={styles.cyberPortalBtn} onPress={() => handleFeatureClick("Cyber Portal India")}>
+                <Ionicons name="globe-outline" size={18} color="#fff" />
+                <Text style={styles.quickActionText}>Cyber Portal</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.helplineBtn} onPress={() => dialCall('1930')}>
+                <Ionicons name="call" size={18} color="#fff" />
+                <Text style={styles.quickActionText}>1930 Helpline</Text>
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
+        );
+
+      case 'Search':
+        return (
+          <ScrollView contentContainerStyle={styles.scrollContent}>
+            <View style={styles.aiScannerContainer}>
+              <Text style={styles.aiScannerLabel}>🔍 Global AI Link, Phishing & Email Scanner</Text>
+              <View style={styles.aiInputBox}>
+                <Text style={styles.aiPlaceholder}>Paste PayPal, Amazon, or suspicious link here...</Text>
+              </View>
+              <TouchableOpacity style={styles.aiScanBtn} onPress={() => handleFeatureClick("Global Phishing & Link Scan")}>
+                <Text style={styles.aiScanBtnText}>Run Global AI Scan</Text>
+              </TouchableOpacity>
+            </View>
+
+            <Text style={styles.sectionHeading}>🛡️ Global Market Shields</Text>
+            <TouchableOpacity style={styles.fullCard} onPress={() => handleFeatureClick("Crypto & Wallet Checker")}>
+              <FontAwesome5 name="bitcoin" size={20} color="#9333ea" />
+              <Text style={styles.fullCardText}>Crypto & Wallet Address Scam Checker</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.fullCard} onPress={() => handleFeatureClick("Online Shopping Guard")}>
+              <FontAwesome5 name="shopping-cart" size={20} color="#16a34a" />
+              <Text style={styles.fullCardText}>Global E-commerce & Shopping Guard</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.fullCard} onPress={() => handleFeatureClick("Job & Telegram Scam Shield")}>
+              <MaterialIcons name="work" size={20} color="#2563eb" />
+              <Text style={styles.fullCardText}>Part-Time Job & Telegram Scam Shield</Text>
+            </TouchableOpacity>
+          </ScrollView>
+        );
+
+      case 'Scan':
+        return (
+          <ScrollView contentContainerStyle={styles.scrollContent}>
+            <View style={styles.scannerBox}>
+              <View style={styles.scannerHeaderRow}>
+                <MaterialIcons name="qr-code-scanner" size={24} color="#b45309" />
+                <Text style={styles.scannerTitle}>Merchant QR & Apple/Google Pay Shield</Text>
+              </View>
+              <Text style={styles.scannerDesc}>Scan store payment QR, Apple Pay, Google Pay screenshots or digital receipts instantly to catch fake payments.</Text>
+              <TouchableOpacity style={styles.pickImgBtn} onPress={() => handleFeatureClick("Merchant QR & Receipt Scanner")}>
+                <MaterialIcons name="photo-library" size={20} color="#fff" />
+                <Text style={styles.pickImgText}>Scan Payment / Receipt from Gallery</Text>
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
+        );
+
+      case 'Alerts':
+        return (
+          <ScrollView contentContainerStyle={styles.scrollContent}>
+            <View style={styles.familyBox}>
+              <View style={styles.scannerHeaderRow}>
+                <Ionicons name="people" size={22} color="#1d4ed8" />
+                <Text style={styles.familyTitle}>👨‍👩‍👧 Family Elder & Kids SOS Shield</Text>
+              </View>
+              <Text style={styles.familyDesc}>Protect grandparents from deepfake voice calls (Grandparent Scam) & kids from gaming frauds.</Text>
+              <TouchableOpacity style={styles.familyBtn} onPress={() => handleFeatureClick("Family Protection Mode")}>
+                <Text style={styles.familyBtnText}>Activate Family Guard</Text>
+              </TouchableOpacity>
+            </View>
+
+            <TouchableOpacity style={styles.fullCard} onPress={() => handleFeatureClick("Digital Arrest & Voice Deepfake Warning")}>
+              <MaterialIcons name="security" size={22} color="#dc2626" />
+              <Text style={styles.fullCardText}>Digital Arrest & AI Voice Deepfake Alert</Text>
+            </TouchableOpacity>
+          </ScrollView>
+        );
+
+      case 'History':
+        return (
+          <ScrollView contentContainerStyle={styles.scrollContent}>
+            <Text style={styles.sectionHeading}>⚙️ Settings & Global Languages</Text>
+            
+            <View style={styles.langRow}>
+              <TouchableOpacity style={[styles.langBtn, language === 'HI' && styles.activeLang]} onPress={() => setLanguage('HI')}>
+                <Text style={styles.langText}>🇮🇳 हिंदी</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={[styles.langBtn, language === 'EN' && styles.activeLang]} onPress={() => setLanguage('EN')}>
+                <Text style={styles.langText}>🇬🇧 English</Text>
+              </TouchableOpacity>
+            </View>
+
+            <TouchableOpacity style={styles.settingOption} onPress={() => handleFeatureClick("License Status: Premium Active")}>
+              <Ionicons name="ribbon-outline" size={20} color="#eab308" />
+              <Text style={styles.settingOptionText}>License & Activation Status</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.settingOption} onPress={() => handleFeatureClick("Scan History Logs")}>
+              <Ionicons name="time-outline" size={20} color="#38bdf8" />
+              <Text style={styles.settingOptionText}>View Scan History & Logs</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.settingOption} onPress={() => handleFeatureClick("About App & Privacy Policy")}>
+              <Ionicons name="information-circle-outline" size={20} color="#16a34a" />
+              <Text style={styles.settingOptionText}>About Developer & Privacy Policy</Text>
+            </TouchableOpacity>
+          </ScrollView>
+        );
+
+      default:
+        return null;
     }
-
-    let pickerResult = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      quality: 1,
-    });
-
-    if (!pickerResult.canceled) {
-      setSelectedImage(pickerResult.assets[0].uri);
-      setScanResult('🔍 AI Scanning...✔ Result: ✅ Genuine payment screenshot / QR code verified.');
-    }
-  };
-
-  const handleUniversalScan = () => {
-    if (!searchQuery.trim()) {
-      Alert.alert('Warning', 'Please enter query to scan.');
-      return;
-    }
-    Alert.alert('🌐 Global AI Scan', 'Query is safe and verified against global database.');
-    setSearchQuery('');
-  };
-
-  const handleReportSubmit = () => {
-    if (!reportText.trim()) {
-      Alert.alert('Error', 'Please write report details.');
-      return;
-    }
-    Alert.alert('Success', 'Fraud report successfully sent to cyber cell.');
-    setReportText('');
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
+      {/* Header */}
       <View style={styles.header}>
-        <View style={styles.logoRow}>
-          <Text style={styles.applogoCircle}>🛡️</Text>
+        <View style={styles.headerTitleRow}>
+          <View style={styles.appIconPlaceholder}>
+            <Ionicons name="shield-checkmark" size={22} color="#fff" />
+          </View>
           <View>
-            <Text style={styles.headerTitle}>{t.title}</Text>
-            <Text style={styles.headerSubtitle}>{t.subtitle}</Text>
+            <Text style={styles.headerTitle}>Fraud Face Detector</Text>
+            <Text style={styles.headerSubtitle}>Active Section: {activeTab}</Text>
           </View>
         </View>
-        <TouchableOpacity style={styles.settingsIconBtn} onPress={() => setSettingsShow(!settingsShow)}>
-          <Text style={{ fontSize: 22 }}>⚙️</Text>
+      </View>
+
+      {/* Dynamic Tab Content */}
+      <View style={{ flex: 1 }}>
+        {renderTabContent()}
+      </View>
+
+      {/* Bottom Navigation Bar */}
+      <View style={styles.bottomNav}>
+        <TouchableOpacity style={styles.navItem} onPress={() => setActiveTab('Home')}>
+          <Ionicons name="home" size={22} color={activeTab === 'Home' ? '#9333ea' : '#94a3b8'} />
+          <Text style={[styles.navText, activeTab === 'Home' && styles.activeNavText]}>Home</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.navItem} onPress={() => setActiveTab('Search')}>
+          <Ionicons name="search" size={22} color={activeTab === 'Search' ? '#9333ea' : '#94a3b8'} />
+          <Text style={[styles.navText, activeTab === 'Search' && styles.activeNavText]}>Search</Text>
+        </TouchableOpacity>
+
+        {/* Center Big Scan Button */}
+        <TouchableOpacity style={styles.centerScanBtn} onPress={() => setActiveTab('Scan')}>
+          <MaterialIcons name="qr-code-scanner" size={28} color="#fff" />
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.navItem} onPress={() => setActiveTab('Alerts')}>
+          <Ionicons name="notifications" size={22} color={activeTab === 'Alerts' ? '#9333ea' : '#94a3b8'} />
+          <Text style={[styles.navText, activeTab === 'Alerts' && styles.activeNavText]}>Alerts</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.navItem} onPress={() => setActiveTab('History')}>
+          <Ionicons name="time" size={22} color={activeTab === 'History' ? '#9333ea' : '#94a3b8'} />
+          <Text style={[styles.navText, activeTab === 'History' && styles.activeNavText]}>History</Text>
         </TouchableOpacity>
       </View>
 
-      {settingsShow && (
-        <View style={styles.settingsHeader}>
-          <Text style={{ color: '#38bdf8', fontWeight: 'bold', marginBottom: 8 }}>{t.settingsHeader}</Text>
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 8 }}>
-            <TouchableOpacity onPress={() => setCurrentLang('hi')} style={[styles.langBtn, currentLang === 'hi' && styles.activeLang]}>
-              <Text style={[styles.langText, currentLang === 'hi' && { color: '#fff' }]}>🇮🇳 हिंदी</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => setCurrentLang('en')} style={[styles.langBtn, currentLang === 'en' && styles.activeLang]}>
-              <Text style={[styles.langText, currentLang === 'en' && { color: '#fff' }]}>🇺🇸 English</Text>
-            </TouchableOpacity>
-          </View>
-          <TouchableOpacity onPress={callHelpline}><Text style={styles.settingItem}>📞 Helpline (1930)</Text></TouchableOpacity>
-          <TouchableOpacity onPress={shareApp}><Text style={styles.settingItem}>🔗 Share App</Text></TouchableOpacity>
-          <TouchableOpacity onPress={() => setSettingsShow(false)} style={styles.closeSettingsBtn}>
-            <Text style={styles.closeBtnText}>{t.closeBtn}</Text>
-          </TouchableOpacity>
-        </View>
-      )}
-
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <TouchableOpacity style={styles.sbiBanner} onPress={openSbiLink}>
-          <Text style={styles.sbiText}>{t.sbiText}</Text>
-          <Text style={styles.sbiSub}>{t.sbiSub}</Text>
-        </TouchableOpacity>
-
-        <View style={styles.sectionHighlight}>
-          <Text style={styles.sectionTitle}>{t.galleryTitle}</Text>
-          <Text style={styles.text}>{t.galleryDesc}</Text>
-          <TouchableOpacity style={styles.galleryButton} onPress={pickImageAndScan}>
-            <Text style={styles.galleryBtnText}>{t.galleryBtn}</Text>
-          </TouchableOpacity>
-          {selectedImage && (
-            <View style={styles.imagePreviewContainer}>
-              <Image source={{ uri: selectedImage }} style={styles.previewImage} />
-              <Text style={styles.scanResultText}>{scanResult}</Text>
-            </View>
-          )}
-        </View>
-
-        <View style={styles.allIndiaSection}>
-          <Text style={styles.tShieldTitle}>{t.shieldTitle}</Text>
-          <View style={styles.categoryGrid}>
-            <TouchableOpacity style={styles.catBox} onPress={() => setActiveModal('farmer')}>
-              <Text style={styles.catIcon}>🌾</Text>
-              <Text style={styles.catText}>{t.farmer}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.catBox} onPress={() => setActiveModal('merchant')}>
-              <Text style={styles.catIcon}>🛒</Text>
-              <Text style={styles.catText}>{t.merchant}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.catBox} onPress={() => setActiveModal('youth')}>
-              <Text style={styles.catIcon}>🚀</Text>
-              <Text style={styles.catText}>{t.youth}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.catBox} onPress={() => setActiveModal('senior')}>
-              <Text style={styles.catIcon}>🧓</Text>
-              <Text style={styles.catText}>{t.senior}</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        <View style={styles.quickActionRow}>
-          <TouchableOpacity style={styles.actionButtonBlue} onPress={openCyberPortal}>
-            <Text style={styles.actionButtonText}>{t.cyberPortal}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.actionButtonRed} onPress={callHelpline}>
-            <Text style={styles.actionButtonText}>{t.helpline}</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.cardSection}>
-          <Text style={styles.universalTitle}>{t.universalTitle}</Text>
-          <TextInput
-            style={styles.input}
-            placeholder={t.placeholderInput}
-            placeholderTextColor="#aaa"
-            value={searchQuery}
-            onChangeText={setSearchQuery}
-          />
-          <TouchableOpacity style={styles.primaryButton} onPress={handleUniversalScan}>
-            <Text style={styles.primaryButtonText}>{t.scanBtn}</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.cardSection}>
-          <Text style={styles.sectionTitle}>{t.bankTitle}</Text>
-          <View style={styles.bankGrid}>
-            <TouchableOpacity style={styles.bankBtn} onPress={callHelpline}><Text style={styles.bankText}>SBI Helpline</Text></TouchableOpacity>
-            <TouchableOpacity style={styles.bankBtn} onPress={callHelpline}><Text style={styles.bankText}>PNB Helpline</Text></TouchableOpacity>
-            <TouchableOpacity style={styles.bankBtn} onPress={callHelpline}><Text style={styles.bankText}>HDFC Helpline</Text></TouchableOpacity>
-            <TouchableOpacity style={styles.bankBtn} onPress={callHelpline}><Text style={styles.bankText}>BOB Helpline</Text></TouchableOpacity>
-          </View>
-        </View>
-
-        <View style={styles.cardSection}>
-          <Text style={styles.sectionTitle}>{t.reportTitle}</Text>
-          <TextInput
-            style={[styles.input, { height: 80, textAlignVertical: 'top' }]}
-            placeholder={t.reportPlaceholder}
-            placeholderTextColor="#aaa"
-            multiline={true}
-            value={reportText}
-            onChangeText={setReportText}
-          />
-          <TouchableOpacity style={styles.successButton} onPress={handleReportSubmit}>
-            <Text style={styles.successButtonText}>{t.reportBtn}</Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
-
-      <Modal visible={activeModal !== null} animationType="slide" transparent={true}>
+      {/* Info Modal */}
+      <Modal visible={infoModalVisible} animationType="fade" transparent={true}>
         <View style={styles.modalOverlay}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Security Active & Protected</Text>
-            <Text style={styles.modalBody}>Feature fully functional and connected to security database.</Text>
-            <TouchableOpacity style={styles.closeModalBtn} onPress={() => setActiveModal(null)}>
-              <Text style={styles.closeBtnText}>{t.closeBtn}</Text>
+          <View style={styles.infoModalContent}>
+            <Ionicons name="shield-checkmark" size={40} color="#2563eb" />
+            <Text style={styles.infoTitle}>Global Protection Active</Text>
+            <Text style={styles.infoDesc}>{modalMessage}</Text>
+            <TouchableOpacity style={styles.closeBtnModal} onPress={() => setInfoModalVisible(false)}>
+              <Text style={styles.closeBtnText}>OK / Done</Text>
             </TouchableOpacity>
           </View>
         </View>
       </Modal>
-    </SafeAreaView>
+
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#0b0f19' },
-  scrollContainer: { padding: 16, paddingTop: 75, paddingBottom: 40 },
-  header: {
-    position: 'absolute', top: 0, left: 0, right: 0, height: 65,
-    backgroundColor: '#0b0f19', flexDirection: 'row', justifyContent: 'space-between',
-    alignItems: 'center', paddingHorizontal: 16, zIndex: 100,
-    borderBottomWidth: 1, borderBottomColor: '#1e293b'
-  },
-  logoRow: { flexDirection: 'row', alignItems: 'center' },
-  applogoCircle: {
-    width: 38, height: 38, backgroundColor: '#1e293b', borderRadius: 10,
-    justifyContent: 'center', alignItems: 'center', marginRight: 10,
-    borderWidth: 1, borderColor: '#94a3b8'
-  },
-  headerTitle: { fontSize: 17, fontWeight: 'bold', color: '#ffffff' },
-  headerSubtitle: { fontSize: 10, color: '#94a3b8' },
-  settingsIconBtn: {
-    width: 38, height: 38, backgroundColor: '#1e293b', borderRadius: 8,
-    justifyContent: 'center', alignItems: 'center',
-    borderWidth: 1, borderColor: '#1e293b'
-  },
-  settingsHeader: {
-    position: 'absolute', top: 65, right: 16, width: 250,
-    backgroundColor: '#1e293b', borderRadius: 10, padding: 12,
-    zIndex: 1000, borderWidth: 1, borderColor: '#38bdf8'
-  },
-  langBtn: {
-    width: '48%', backgroundColor: '#0f172a', padding: 6, borderRadius: 6,
-    borderWidth: 1, borderColor: '#38bdf8', alignItems: 'center'
-  },
-  activeLang: { backgroundColor: '#38bdf8' },
-  langText: { color: '#ffffff', fontSize: 11, fontWeight: 'bold' },
-  settingItem: { paddingVertical: 8, borderBottomWidth: 1, borderBottomColor: '#0f172a', color: '#ffffff', fontWeight: 'bold' },
-  closeSettingsBtn: {
-    backgroundColor: '#dc2626', marginTop: 8, padding: 6, borderRadius: 6, alignItems: 'center'
-  },
-  closeBtnText: { color: '#ffffff', fontWeight: 'bold' },
-  sbiBanner: {
-    backgroundColor: '#f59e0b', padding: 14, borderRadius: 12, marginBottom: 16
-  },
-  sbiText: { color: '#000000', fontWeight: 'bold', fontSize: 15 },
-  sbiSub: { color: '#111827', fontSize: 12, marginTop: 4 },
-  sectionHighlight: {
-    backgroundColor: '#1e293b', padding: 14, borderRadius: 12, marginBottom: 16,
-    borderWidth: 1, borderColor: '#38bdf8'
-  },
-  sectionTitle: { color: '#38bdf8', fontSize: 16, fontWeight: 'bold', marginBottom: 6 },
-  text: { color: '#cbd5e1', fontSize: 12, marginBottom: 10 },
-  galleryButton: { backgroundColor: '#38bdf8', padding: 10, borderRadius: 8, alignItems: 'center' },
-  galleryBtnText: { color: '#0f172a', fontWeight: 'bold' },
-  imagePreviewContainer: { marginTop: 10, alignItems: 'center' },
-  previewImage: { width: 100, height: 100, borderRadius: 8, marginBottom: 6 },
-  scanResultText: { color: '#4ade80', fontSize: 11, textAlign: 'center' },
-  allIndiaSection: { backgroundColor: '#1e293b', padding: 12, borderRadius: 12, marginBottom: 16 },
-  tShieldTitle: { color: '#f87171', fontWeight: 'bold', marginBottom: 8 },
-  categoryGrid: { flexDirection: 'row', justifyContent: 'space-between' },
-  catBox: { backgroundColor: '#0f172a', width: '23%', padding: 8, borderRadius: 8, alignItems: 'center' },
-  catIcon: { fontSize: 20, marginBottom: 4 },
-  catText: { color: '#e2e8f0', fontSize: 9, textAlign: 'center' },
-  quickActionRow: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 16 },
-  actionButtonBlue: { backgroundColor: '#2563eb', flex: 1, padding: 12, borderRadius: 10, marginRight: 8, alignItems: 'center' },
-  actionButtonRed: { backgroundColor: '#dc2626', flex: 1, padding: 12, borderRadius: 10, marginLeft: 8, alignItems: 'center' },
-  actionButtonText: { color: '#ffffff', fontWeight: 'bold', fontSize: 12 },
-  cardSection: { backgroundColor: '#1e293b', padding: 14, borderRadius: 12, marginBottom: 16 },
-  universalTitle: { color: '#facc15', fontWeight: 'bold', marginBottom: 8 },
-  input: {
-    backgroundColor: '#0f172a', color: '#ffffff', padding: 10, borderRadius: 8,
-    borderWidth: 1, borderColor: '#334155', marginBottom: 10
-  },
-  primaryButton: { backgroundColor: '#10b981', padding: 10, borderRadius: 8, alignItems: 'center' },
-  primaryButtonText: { color: '#ffffff', fontWeight: 'bold' },
-  bankGrid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' },
-  bankBtn: {
-    backgroundColor: '#0f172a', width: '48%', padding: 10, borderRadius: 8,
-    alignItems: 'center', marginBottom: 8, borderWidth: 1, borderColor: '#334155'
-  },
-  bankText: { color: '#38bdf8', fontSize: 12, fontWeight: 'bold' },
-  successButton: { backgroundColor: '#3b82f6', padding: 10, borderRadius: 8, alignItems: 'center' },
-  successButtonText: { color: '#ffffff', fontWeight: 'bold' },
-  modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.7)', justifyContent: 'center', alignItems: 'center', padding: 20 },
-  modalContent: { backgroundColor: '#1e293b', width: '100%', padding: 20, borderRadius: 12, borderWidth: 1, borderColor: '#38bdf8' },
-  modalTitle: { color: '#38bdf8', fontSize: 16, fontWeight: 'bold', marginBottom: 10 },
-  modalBody: { color: '#cbd5e1', fontSize: 13, marginBottom: 20 },
-  closeModalBtn: { backgroundColor: '#ef4444', padding: 10, borderRadius: 8, alignItems: 'center' }
+  container: { flex: 1, backgroundColor: '#0f172a' },
+  header: { backgroundColor: '#1e293b', paddingHorizontal: 16, paddingTop: 45, paddingBottom: 15, flexDirection: 'row', alignItems: 'center' },
+  headerTitleRow: { flexDirection: 'row', alignItems: 'center' },
+  appIconPlaceholder: { width: 36, height: 36, backgroundColor: '#2563eb', borderRadius: 8, justifyContent: 'center', alignItems: 'center', marginRight: 10 },
+  headerTitle: { color: '#fff', fontSize: 16, fontWeight: 'bold' },
+  headerSubtitle: { color: '#94a3b8', fontSize: 11 },
+  scrollContent: { padding: 16, paddingBottom: 90 },
+  alertBanner: { backgroundColor: '#fef3c7', padding: 12, borderRadius: 10, marginBottom: 15, borderWidth: 1, borderColor: '#f59e0b' },
+  alertText: { color: '#b45309', fontWeight: 'bold', fontSize: 13 },
+  alertSubText: { color: '#78350f', fontSize: 11, marginTop: 2 },
+  sectionHeading: { color: '#f8fafc', fontSize: 15, fontWeight: 'bold', marginBottom: 10, marginTop: 5 },
+  bankGrid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', marginBottom: 15 },
+  bankCard: { width: '48%', backgroundColor: '#1e293b', padding: 12, borderRadius: 8, alignItems: 'center', marginBottom: 10, borderWidth: 1, borderColor: '#334155' },
+  bankText: { color: '#60a5fa', fontWeight: 'bold', fontSize: 13 },
+  quickActionRow: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 20 },
+  cyberPortalBtn: { backgroundColor: '#0284c7', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', padding: 12, borderRadius: 8, marginRight: 8 },
+  helplineBtn: { backgroundColor: '#dc2626', flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', padding: 12, borderRadius: 8, marginLeft: 8 },
+  quickActionText: { color: '#fff', fontWeight: 'bold', marginLeft: 6 },
+  aiScannerContainer: { backgroundColor: '#1e293b', padding: 15, borderRadius: 12, marginBottom: 15, borderWidth: 1, borderColor: '#334155' },
+  aiScannerLabel: { color: '#38bdf8', fontWeight: 'bold', fontSize: 13, marginBottom: 8 },
+  aiInputBox: { backgroundColor: '#0f172a', padding: 12, borderRadius: 8, marginBottom: 10, borderWidth: 1, borderColor: '#475569' },
+  aiPlaceholder: { color: '#64748b', fontSize: 12 },
+  aiScanBtn: { backgroundColor: '#16a34a', padding: 12, borderRadius: 8, alignItems: 'center' },
+  aiScanBtnText: { color: '#fff', fontWeight: 'bold' },
+  scannerBox: { backgroundColor: '#fffbeb', padding: 15, borderRadius: 12, marginBottom: 15, borderWidth: 1, borderColor: '#fde68a' },
+  scannerHeaderRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 6 },
+  scannerTitle: { fontWeight: 'bold', color: '#92400e', fontSize: 15, marginLeft: 8 },
+  scannerDesc: { color: '#78350f', fontSize: 12, marginBottom: 12 },
+  pickImgBtn: { backgroundColor: '#d97706', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingVertical: 10, borderRadius: 8 },
+  pickImgText: { color: '#fff', fontWeight: 'bold', marginLeft: 8 },
+  familyBox: { backgroundColor: '#eff6ff', padding: 15, borderRadius: 12, marginBottom: 15, borderWidth: 1, borderColor: '#bfdbfe' },
+  familyTitle: { fontWeight: 'bold', color: '#1e40af', fontSize: 14, marginLeft: 8 },
+  familyDesc: { color: '#1e3a8a', fontSize: 12, marginBottom: 10 },
+  familyBtn: { backgroundColor: '#1d4ed8', paddingVertical: 10, borderRadius: 8, alignItems: 'center' },
+  familyBtnText: { color: '#fff', fontWeight: 'bold' },
+  fullCard: { backgroundColor: '#1e293b', padding: 15, borderRadius: 10, flexDirection: 'row', alignItems: 'center', marginBottom: 12, borderWidth: 1, borderColor: '#334155' },
+  fullCardText: { color: '#e2e8f0', fontSize: 13, fontWeight: 'bold', marginLeft: 10 },
+  langRow: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15 },
+  langBtn: { flex: 1, backgroundColor: '#1e293b', padding: 10, borderRadius: 8, alignItems: 'center', marginHorizontal: 4, borderWidth: 1, borderColor: '#334155' },
+  activeLang: { borderColor: '#9333ea', backgroundColor: '#3b0764' },
+  langText: { color: '#fff', fontWeight: 'bold' },
+  settingOption: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#1e293b', padding: 15, borderRadius: 10, marginBottom: 10, borderWidth: 1, borderColor: '#334155' },
+  settingOptionText: { color: '#e2e8f0', marginLeft: 12, fontWeight: 'bold', fontSize: 13 },
+  bottomNav: { position: 'absolute', bottom: 0, left: 0, right: 0, height: 65, backgroundColor: '#1e293b', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', borderTopWidth: 1, borderTopColor: '#334155', paddingHorizontal: 10 },
+  navItem: { alignItems: 'center', justifyContent: 'center', flex: 1 },
+  navText: { color: '#94a3b8', fontSize: 10, marginTop: 2 },
+  activeNavText: { color: '#9333ea', fontWeight: 'bold' },
+  centerScanBtn: { width: 55, height: 55, backgroundColor: '#9333ea', borderRadius: 28, justifyContent: 'center', alignItems: 'center', marginBottom: 20, borderWidth: 3, borderColor: '#0f172a' },
+  modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.7)', justifyContent: 'center', alignItems: 'center' },
+  infoModalContent: { width: '80%', backgroundColor: '#1e293b', padding: 25, borderRadius: 12, alignItems: 'center', borderWidth: 1, borderColor: '#475569' },
+  infoTitle: { color: '#fff', fontSize: 16, fontWeight: 'bold', marginVertical: 10, textAlign: 'center' },
+  infoDesc: { color: '#94a3b8', fontSize: 13, textAlign: 'center', marginBottom: 15 },
+  closeBtnModal: { backgroundColor: '#dc2626', padding: 10, borderRadius: 8, alignItems: 'center', width: '100%' },
+  closeBtnText: { color: '#fff', fontWeight: 'bold' }
 });
-        
+    

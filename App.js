@@ -362,3 +362,4 @@ const styles = StyleSheet.create({
   adTextSmall: { color: '#9ca3af', fontSize: 11, fontWeight: 'bold' },
   adPublisherText: { color: '#6b7280', fontSize: 9, marginTop: 2 }
 });
+        

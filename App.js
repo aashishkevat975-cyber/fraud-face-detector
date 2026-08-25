@@ -52,7 +52,7 @@ export default function App() {
               <Text style={styles.alertSubText}>यह ऐप आपके फोन को हैकिंग, फर्जी लोन और ब्लैकमेलिंग से 24 घंटे बचा रहा है.</Text>
             </View>
 
-            {/* NEW: SBI INSTANT LOAN & BONUS SCAM SHIELD */}
+            {/* SBI INSTANT LOAN & BONUS SCAM SHIELD */}
             <View style={styles.loanScamBox}>
               <View style={styles.scannerHeaderRow}>
                 <FontAwesome5 name="rupee-sign" size={22} color="#b45309" />
@@ -331,6 +331,7 @@ export default function App() {
         </TouchableOpacity>
       </View>
 
+      {/* LANGUAGE MODAL */}
       <Modal visible={langModalVisible} animationType="slide" transparent={true}>
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
@@ -345,4 +346,5 @@ export default function App() {
             <TouchableOpacity style={styles.langOptionItem} onPress={() => { setCurrentLang('ES'); setLangModalVisible(false); }}>
               <Text style={styles.langText}>🇪🇸 Español (Spanish)</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.langO
+
+            <TouchableOp

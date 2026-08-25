@@ -10,14 +10,14 @@ export default function App() {
   const [modalTitle, setModalTitle] = useState('');
   const [modalDesc, setModalDesc] = useState('');
 
-  // NEW: Automatic 3-4 hour alert simulation reminder
+  // Automatic 3-4 hour alert simulation reminder
   useEffect(() => {
     const timer = setInterval(() => {
       openFeatureDetails(
-        "⏰ सुरक्षा रिमाइंडर (हर 3-4 घंटे)",
-        "यह एक स्वचालित सुरक्षा संदेश है: सतर्क रहें! अपने फोन पर किसी भी अनजान लिंक, फर्जी कॉल या क्यूआर कोड पर भरोसा न करें।"
+        "⏰ सुरक्षा रिमाइंडर (हर 4 घंटे)",
+        "यह स्वचालित सुरक्षा संदेश है: सतर्क रहें! किसी भी अनजान लिंक, फर्जी लोन ऑफर या बोनस के झांसे में आकर पैसे न भेजें।"
       );
-    }, 4 * 60 * 60 * 1000); // 4 घंटे का समय अंतराल
+    }, 4 * 60 * 60 * 1000);
 
     return () => clearInterval(timer);
   }, []);
@@ -32,11 +32,10 @@ export default function App() {
     setInfoModalVisible(true);
   };
 
-  // NEW: Share app function to protect friends and family
   const shareAppFunction = async () => {
     try {
       await Share.share({
-        message: 'सजग रहें! इस 'Fraud Face Detector' ऐप को डाउनलोड करें और अपने सगे-संबंधियों को हैकिंग, ऑनलाइन फ्रॉड और ब्लैकमेलिंग से बचाएं।',
+        message: 'सजग रहें! इस 'Fraud Face Detector' ऐप को डाउनलोड करें और अपने सगे-संबंधियों को हैकिंग, फर्जी लोन और ऑनलाइन फ्रॉड से बचाएं।',
       });
     } catch (error) {
       alert("शेयर करने में त्रुटि आई।");
@@ -49,18 +48,32 @@ export default function App() {
         return (
           <ScrollView contentContainerStyle={styles.scrollContent}>
             <View style={styles.alertBanner}>
-              <Text style={styles.alertText}>🚨 एंटी-हैंक और एआई फ्रॉड सुरक्षा सक्रिय</Text>
-              <Text style={styles.alertSubText}>यह ऐप आपके फोन को हैकिंग, जासूसी और ब्लैकमेलिंग से 24 घंटे बचा रहा है।</Text>
+              <Text style={styles.alertText}>🚨 एंटी-हैंक और एसबीआई लोन फ्रॉड सुरक्षा सक्रिय</Text>
+              <Text style={styles.alertSubText}>यह ऐप आपके फोन को हैकिंग, फर्जी लोन और ब्लैकमेलिंग से 24 घंटे बचा रहा है.</Text>
             </View>
 
-            {/* NEW: SHARE APP BUTTON CARD */}
+            {/* NEW: SBI INSTANT LOAN & BONUS SCAM SHIELD */}
+            <View style={styles.loanScamBox}>
+              <View style={styles.scannerHeaderRow}>
+                <FontAwesome5 name="rupee-sign" size={22} color="#b45309" />
+                <Text style={styles.loanScamTitle}>🏦 SBI इंस्टेंट लोन और बोनस फ्रॉड शील्ड</Text>
+              </View>
+              <Text style={styles.loanScamDesc}>
+                "एसबीआई से लोन और साथ में बोनस/कैशबैक" के नाम पर होने वाली ठगी से सावधान! अगर कोई लोन पास कराने के नाम पर पैसे मांगे, तो यह ऐप तुरंत लाल चेतावनी (Red Alert) जारी कर देगा।
+              </Text>
+              <TouchableOpacity style={styles.loanScamBtn} onPress={() => openFeatureDetails("SBI इंस्टेंट लोन और बोनस फ्रॉड शील्ड", "यह फीचर फर्जी लोन ऐप्स और उन मैसेज को पकड़ता है जो लोन या बोनस का लालच देकर एडवांस फीस या प्रोसेसिंग चार्ज मांगते हैं।")} >
+                <Text style={styles.loanScamBtnText}>लोन ऑफर और बोनस की जाँच करें</Text>
+              </TouchableOpacity>
+            </View>
+
+            {/* SHARE APP BUTTON CARD */}
             <View style={styles.shareCardBox}>
               <View style={styles.scannerHeaderRow}>
                 <Ionicons name="share-social" size={24} color="#1d4ed8" />
                 <Text style={styles.shareCardTitle}>📢 अपने सगे-संबंधियों को बचाएं (Share App)</Text>
               </View>
               <Text style={styles.shareCardDesc}>
-                फ्रॉड से सिर्फ खुद नहीं, अपनों को भी बचाएं! इस ऐप को अपने परिवार और दोस्तों के साथ शेयर करें ताकि कोई ठगी का शिकार न हो।
+                फ्रॉड से सिर्फ खुद नहीं, अपनों को भी बचाएं! इस ऐप को अपने परिवार और दोस्तों के साथ शेयर करें ताकि कोई फर्जी लोन के झांसे में न फंसे।
               </Text>
               <TouchableOpacity style={styles.shareCardBtn} onPress={shareAppFunction}>
                 <Text style={styles.shareCardBtnText}>अभी शेयर करें और अपनों को बचाएं</Text>
@@ -332,21 +345,4 @@ export default function App() {
             <TouchableOpacity style={styles.langOptionItem} onPress={() => { setCurrentLang('ES'); setLangModalVisible(false); }}>
               <Text style={styles.langText}>🇪🇸 Español (Spanish)</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.langOptionItem} onPress={() => { setCurrentLang('FR'); setLangModalVisible(false); }}>
-              <Text style={styles.langText}>🇫🇷 Français (French)</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.langOptionItem} onPress={() => { setCurrentLang('DE'); setLangModalVisible(false); }}>
-              <Text style={styles.langText}>🇩🇪 Deutsch (German)</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.langOptionItem} onPress={() => { setCurrentLang('AR'); setLangModalVisible(false); }}>
-              <Text style={styles.langText}>🇸🇦 العربية (Arabic)</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.closeBtnModal} onPress={() => setLangModalVisible(false)}>
-              <Text style={styles.closeBtnText}>बंद करें (Close)</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
-
-      <Modal visible=
+            <TouchableOpacity style={styles.langO

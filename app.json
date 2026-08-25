@@ -4,15 +4,10 @@
     "slug": "fraud-face-detector",
     "version": "1.0.0",
     "orientation": "portrait",
-    "userInterfaceStyle": "dark",
-    "extra": {
-      "eas": {
-        "projectId": "5446927b-166c-4de8-86c3-b83c97ccc369"
-      }
-    },
-    "icon": "./icon.png",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
     "splash": {
-      "image": "./splash.png",
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -23,7 +18,17 @@
       "package": "com.aashish.fraudfacedetector"
     },
     "web": {
-      "favicon": "./favicon.png"
+      "favicon": "./assets/favicon.png"
+    },
+    "sdkVersion": "51.0.0",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "9b992272-52da-4a5e-817b-fe51b1fc9486"
+      }
     }
   }
 }

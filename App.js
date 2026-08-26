@@ -9,7 +9,6 @@ export default function App() {
   const [modalTitle, setModalTitle] = useState('');
   const [modalDesc, setModalDesc] = useState('');
 
-  // Translations content for multi-language support
   const t = {
     HI: {
       title: "फ्रॉड फेस डिटेक्टर",
@@ -64,48 +63,10 @@ export default function App() {
       bankHead: "🏦 Bank Emergency Helplines (India)",
       cyberPortal: "Cyber Portal",
       helpline1930: "1930 Helpline"
-    },
-    ES: {
-      title: "Fraud Face Detector",
-      subtitle: "Aplicación de seguridad global y anti-hack",
-      alertTitle: "🚨 Protección activa contra fraudes y hackeos",
-      alertSub: "Esta aplicación protege tu teléfono contra hackeos y préstamos falsos las 24 horas.",
-      bonusTitle: "🎁 Oferta especial de bonificación gratuita",
-      bonusDesc: "Reclama tu recompensa especial por tiempo limitado. Haz clic abajo.",
-      bonusBtn: "🎁 Reclamar bonificación ahora",
-      loanTitle: "🏦 Escudo contra fraudes de préstamos",
-      loanDesc: "¡Cuidado con estafas de préstamos falsos! Si alguien pide dinero por adelantado, la app te avisará.",
-      loanBtn: "Verificar oferta de préstamo",
-      shareTitle: "📢 Protege a tus seres queridos",
-      shareDesc: "¡Comparte esta aplicación con tu familia y amigos para mantenerlos seguros!",
-      shareBtn: "Compartir ahora",
-      hackTitle: "🛡️ Escudo de protección anti-hack",
-      hackDesc: "Evita que extraños accedan a tus fotos, videos e información personal.",
-      hackBtn: "Escudo anti-hack activo (Escanear)",
-      callTitle: "⚡ Escudo de predicción de fraudes",
-      callDesc: "Te alerta al instante si recibes llamadas falsas o amenazas de arresto digital.",
-      callBtn: "Predicción de fraude activa",
-      bizTitle: "💼 Verificador de facturas y correos",
-      bizDesc: "Ayuda a los comerciantes a verificar facturas o correos electrónicos falsos.",
-      bizBtn: "Escanear factura o correo",
-      bankHead: "🏦 Líneas de ayuda de emergencia bancaria",
-      cyberPortal: "Portal Cibernético",
-      helpline1930: "Línea de ayuda 1930"
     }
   };
 
   const currentStrings = t[currentLang] || t['HI'];
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      openFeatureDetails(
-        "⏰ सुरक्षा रिमाइंडर (हर 4 घंटे)",
-        currentLang === 'EN' ? "Automatic safety reminder: Stay alert! Do not send money to unknown links or fake offers." : "यह स्वचालित सुरक्षा संदेश है: सतर्क रहें! किसी भी अनजान लिंक, फर्जी लोन ऑफर या बोनस के झांसे में आकर पैसे न भेजें।"
-      );
-    }, 4 * 60 * 60 * 1000);
-
-    return () => clearInterval(timer);
-  }, [currentLang]);
 
   const dialCall = (number) => {
     Linking.openURL(`tel:${number}`);
@@ -122,10 +83,10 @@ export default function App() {
       await Share.share({
         message: currentLang === 'EN' 
           ? 'Stay safe! Download this Fraud Face Detector app to protect your loved ones from online scams, hacking, and fake loans.'
-          : 'सजग रहें! इस Fraud Face Detector ऐप को डाउनलोड करें और अपने सगे-संबंधियों को हैकिंग, फर्जी लोन और ऑनलाइन फ्रॉड से बचाएं।',
+          : 'सजग रहें! इस Fraud Face Detector ऐप को डाउनलोड करें और अपने सगे-संबंधियों को हैकिंग, फर्जी लोन और ऑनलाइन फ्रॉड से बचाएं।'
       });
     } catch (error) {
-      alert("शेयर करने में त्रुटि आई।");
+      // Ignore share cancellation error
     }
   };
 
@@ -139,7 +100,6 @@ export default function App() {
               <Text style={styles.alertSubText}>{currentStrings.alertSub}</Text>
             </View>
 
-            {/* नया बोनस और रिवॉर्ड लिंक बॉक्स */}
             <View style={styles.bonusCardBox}>
               <Text style={styles.bonusCardTitle}>{currentStrings.bonusTitle}</Text>
               <Text style={styles.bonusCardDesc}>{currentStrings.bonusDesc}</Text>
@@ -151,7 +111,7 @@ export default function App() {
             <View style={styles.loanScamBox}>
               <Text style={styles.loanScamTitle}>{currentStrings.loanTitle}</Text>
               <Text style={styles.loanScamDesc}>{currentStrings.loanDesc}</Text>
-              <TouchableOpacity style={styles.loanScamBtn} onPress={() => openFeatureDetails(currentStrings.loanTitle, currentStrings.loanDesc)} >
+              <TouchableOpacity style={styles.loanScamBtn} onPress={() => openFeatureDetails(currentStrings.loanTitle, currentStrings.loanDesc)}>
                 <Text style={styles.loanScamBtnText}>{currentStrings.loanBtn}</Text>
               </TouchableOpacity>
             </View>
@@ -172,48 +132,15 @@ export default function App() {
               </TouchableOpacity>
             </View>
 
-            <View style={styles.proactiveBox}>
-              <Text style={styles.proactiveTitle}>{currentStrings.callTitle}</Text>
-              <Text style={styles.proactiveDesc}>{currentStrings.callDesc}</Text>
-              <TouchableOpacity style={styles.proactiveBtn} onPress={() => openFeatureDetails(currentStrings.callTitle, currentStrings.callDesc)}>
-                <Text style={styles.proactiveBtnText}>{currentStrings.callBtn}</Text>
-              </TouchableOpacity>
-            </View>
-
-            <View style={styles.masterFeatureBox}>
-              <Text style={styles.masterTitle}>{currentStrings.bizTitle}</Text>
-              <Text style={styles.masterDesc}>{currentStrings.bizDesc}</Text>
-              <TouchableOpacity style={styles.masterBtn} onPress={() => openFeatureDetails(currentStrings.bizTitle, currentStrings.bizDesc)}>
-                <Text style={styles.masterBtnText}>{currentStrings.bizBtn}</Text>
-              </TouchableOpacity>
-            </View>
-
             <Text style={styles.sectionHeading}>{currentStrings.bankHead}</Text>
             <View style={styles.bankGrid}>
               <TouchableOpacity style={styles.bankCard} onPress={() => dialCall('1800123456')}>
                 <Text style={styles.bankText}>SBI हेल्पलाइन</Text>
                 <Text style={styles.bankSubText}>खाता ब्लॉक करने हेतु</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.bankCard} onPress={() => dialCall('18001802222')}>
-                <Text style={styles.bankText}>PNB हेल्पलाइन</Text>
-                <Text style={styles.bankSubText}>तुरंत सहायता</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.bankCard} onPress={() => dialCall('18002586161')}>
-                <Text style={styles.bankText}>HDFC हेल्पलाइन</Text>
-                <Text style={styles.bankSubText}>फ्रॉड रिपोर्टिंग</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.bankCard} onPress={() => dialCall('18002584455')}>
-                <Text style={styles.bankText}>BOB हेल्पलाइन</Text>
-                <Text style={styles.bankSubText}>आपातकालीन कॉल</Text>
-              </TouchableOpacity>
-            </View>
-
-            <View style={styles.quickActionRow}>
-              <TouchableOpacity style={styles.cyberPortalBtn} onPress={() => Linking.openURL('https://cybercrime.gov.in')}>
-                <Text style={styles.quickActionText}>{currentStrings.cyberPortal}</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.helplineBtn} onPress={() => dialCall('1930')}>
-                <Text style={styles.quickActionText}>{currentStrings.helpline1930}</Text>
+              <TouchableOpacity style={styles.bankCard} onPress={() => dialCall('1930')}>
+                <Text style={styles.bankText}>साइबर हेल्पलाइन</Text>
+                <Text style={styles.bankSubText}>1930 कॉल करें</Text>
               </TouchableOpacity>
             </View>
           </ScrollView>
@@ -223,35 +150,12 @@ export default function App() {
         return (
           <ScrollView contentContainerStyle={styles.scrollContent}>
             <View style={styles.aiScannerContainer}>
-              <Text style={styles.aiScannerLabel}>🔍 एआई लिंक, फिशिंग और ईमेल स्कैनर</Text>
-              <Text style={styles.cardDescText}>संदिग्ध लिंक, खतरनाक वेबसाइट या फर्जी मैसेज यहाँ स्कैन करें।</Text>
-              <TouchableOpacity style={styles.aiScanBtn} onPress={() => openFeatureDetails("एआई लिंक स्कैनर", "खतरनाक लिंक या फिशिंग वेबसाइट को पहचानकर सुरक्षित रखता है। इंजन पूरी तरह सक्रिय है।")}>
-                <Text style={styles.aiScanBtnText}>ग्लोबल एआई स्कैन चलाएं</Text>
+              <Text style={styles.aiScannerLabel}>🔍 एआई लिंक और फिशिंग स्कैनर</Text>
+              <Text style={styles.cardDescText}>संदिग्ध लिंक या वेबसाइट यहाँ जाँचें।</Text>
+              <TouchableOpacity style={styles.aiScanBtn} onPress={() => openFeatureDetails("एआई स्कैनर", "स्कैनर पूरी तरह सक्रिय है।")}>
+                <Text style={styles.aiScanBtnText}>स्कैन चलाएं</Text>
               </TouchableOpacity>
             </View>
-
-            <Text style={styles.sectionHeading}>🛡️ ग्लोबल मार्केट और शॉपिंग सुरक्षा</Text>
-            
-            <TouchableOpacity style={styles.fullCard} onPress={() => openFeatureDetails("क्रिप्टो और वॉलेट स्कैम चेकर", "क्रिप्टो करेंसी फ्रॉड और फर्जी वॉलेट एड्रेस की जाँच करता है।")}>
-              <View style={{flex: 1}}>
-                <Text style={styles.fullCardTitle}>क्रिप्टो और वॉलेट एड्रेस चेकर</Text>
-                <Text style={styles.cardDescText}>ऑनलाइन होने वाले क्रिप्टो फ्रॉड से बचाता है।</Text>
-              </View>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.fullCard} onPress={() => openFeatureDetails("ऑनलाइन शॉपिंग गार्ड", "फेक ई-कॉमर्स साइटों पर सस्ते सामान के नाम पर होने वाली ठगी से बचाता है।")}>
-              <View style={{flex: 1}}>
-                <Text style={styles.fullCardTitle}>ऑनलाइन ई-कॉमर्स और शॉपिंग गार्ड</Text>
-                <Text style={styles.cardDescText}>फेक शॉपिंग वेबसाइट्स की पहचान करता है।</Text>
-              </View>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.fullCard} onPress={() => openFeatureDetails("पार्ट-टाइम जॉब स्कैम शील्ड", "युवाओं और स्टूडेंट्स को फर्जी टेलीग्राम/व्हाट्सएप जॉब स्कैम से बचाता है।")}>
-              <View style={{flex: 1}}>
-                <Text style={styles.fullCardTitle}>पार्ट-टाइम जॉब और टेलीग्राम स्कैम शील्ड</Text>
-                <Text style={styles.cardDescText}>फर्जी नौकरी के झांसे से बचाता है।</Text>
-              </View>
-            </TouchableOpacity>
           </ScrollView>
         );
 
@@ -259,12 +163,10 @@ export default function App() {
         return (
           <ScrollView contentContainerStyle={styles.scrollContent}>
             <View style={styles.scannerBox}>
-              <Text style={styles.scannerTitle}>मर्चेंट क्यूआर और डिजिटल रिसीट शील्ड</Text>
-              <Text style={styles.scannerDesc}>
-                दुकानदारों के लिए स्टोर का पेमेंट क्यूआर, Google Pay या डिजिटल रिसीट स्कैन करके बताता है कि पेमेंट असली है या नकली।
-              </Text>
-              <TouchableOpacity style={styles.pickImgBtn} onPress={() => openFeatureDetails("मर्चेंट क्यूआर और रिसीट स्कैनर", "गैलरी से पेमेंट स्क्रीनशॉट स्कैन करने का मॉड्यूल सक्रिय कर दिया गया है।")} >
-                <Text style={styles.pickImgText}>गैलरी से पेमेंट / रिसीट स्कैन करें</Text>
+              <Text style={styles.scannerTitle}>मर्चेंट क्यूआर और रिसीट शील्ड</Text>
+              <Text style={styles.scannerDesc}>पेमेंट स्क्रीनशॉट स्कैन करें।</Text>
+              <TouchableOpacity style={styles.pickImgBtn} onPress={() => openFeatureDetails("रिसीट स्कैनर", "मॉड्यूल सक्रिय है।")}>
+                <Text style={styles.pickImgText}>रिसीट स्कैन करें</Text>
               </TouchableOpacity>
             </View>
           </ScrollView>
@@ -274,47 +176,22 @@ export default function App() {
         return (
           <ScrollView contentContainerStyle={styles.scrollContent}>
             <View style={styles.familyBox}>
-              <Text style={styles.familyTitle}>👨‍👩‍👧 परिवार के बुजुर्गों और बच्चों की सुरक्षा (SOS)</Text>
-              <Text style={styles.familyDesc}>
-                बुजुर्गों को AI वॉयस डीपफेक कॉल और बच्चों को ऑनलाइन गेमिंग या साइबर बुलिंग से बचाने वाला सुरक्षा कवच।
-              </Text>
-              <TouchableOpacity style={styles.familyBtn} onPress={() => openFeatureDetails("फैमिली और किड्स SOS शील्ड", "परिवार के सभी सदस्यों के लिए आपातकालीन अलर्ट सिस्टम सक्रिय है।")}>
-                <Text style={styles.familyBtnText}>फैमिली गार्ड सक्रिय करें</Text>
+              <Text style={styles.familyTitle}>👨‍👩‍👧 फैमिली सुरक्षा (SOS)</Text>
+              <Text style={styles.familyDesc}>बुजुर्गों और बच्चों की सुरक्षा कवच।</Text>
+              <TouchableOpacity style={styles.familyBtn} onPress={() => openFeatureDetails("फैमिली गार्ड", "सक्रिय है।")}>
+                <Text style={styles.familyBtnText}>सक्रिय करें</Text>
               </TouchableOpacity>
             </View>
-
-            <TouchableOpacity style={styles.fullCard} onPress={() => openFeatureDetails("डिजिटल अरेस्ट चेतावनी", "पुलिस या सीबीआई अधिकारी बनकर वीडियो कॉल पर डराने वाले स्कैमर्स की पहचान करता है।")}>
-              <View style={{flex: 1}}>
-                <Text style={styles.fullCardTitle}>डिजिटल अरेस्ट और एआई वॉयस डीपफेक चेतावनी</Text>
-                <Text style={styles.cardDescText}>फर्जी पुलिस कॉल और वीडियो स्कैम से बचाता है।</Text>
-              </View>
-            </TouchableOpacity>
           </ScrollView>
         );
 
       case 'History':
         return (
           <ScrollView contentContainerStyle={styles.scrollContent}>
-            <Text style={styles.sectionHeading}>⚙️ सेटिंग्स और भाषा विकल्प (Languages)</Text>
-            
             <TouchableOpacity style={styles.languageMainBtn} onPress={() => setLangModalVisible(true)}>
               <View style={{flex: 1}}>
-                <Text style={styles.langMainTitle}>भाषा बदलें (Change Language) / Select Language</Text>
-                <Text style={styles.langMainSub}>वर्तमान भाषा: {currentLang === 'HI' ? 'हिंदी (Hindi)' : currentLang === 'EN' ? 'English' : 'Español'}</Text>
-              </View>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.settingOption} onPress={() => openFeatureDetails("लाइसेंस स्थिति", "आपके ऐप की प्रीमियम सुरक्षा और एक्टिवेशन स्टेटस पूरी तरह सक्रिय है।")}>
-              <View style={{flex: 1}}>
-                <Text style={styles.settingTitle}>लाइसेंस और एक्टिवेशन स्टेटस</Text>
-                <Text style={styles.cardDescText}>प्रीमियम सुरक्षा कवच सक्रिय है।</Text>
-              </View>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.settingOption} onPress={() => openFeatureDetails("स्कैन इतिहास", "आपके द्वारा पहले किए गए सभी लिंक्स और दस्तावेजों के स्कैन का रिकॉर्ड सुरक्षित है।")}>
-              <View style={{flex: 1}}>
-                <Text style={styles.settingTitle}>स्कैन इतिहास और लॉग्स देखें</Text>
-                <Text style={styles.cardDescText}>पिछले सभी स्कैम चेक का रिकॉर्ड।</Text>
+                <Text style={styles.langMainTitle}>भाषा बदलें (Change Language)</Text>
+                <Text style={styles.langMainSub}>वर्तमान: {currentLang}</Text>
               </View>
             </TouchableOpacity>
           </ScrollView>
@@ -357,6 +234,98 @@ export default function App() {
       <Modal visible={langModalVisible} animationType="slide" transparent={true}>
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
-            <Text style={styles.modalHeading}>🌐 भाषा चुनें (Select Language)</Text>
-            
-            <TouchableOpacity style={styles.lang
+            <Text style={styles.modalHeading}>🌐 भाषा चुनें</Text>
+            <TouchableOpacity style={styles.langOptionItem} onPress={() => { setCurrentLang('HI'); setLangModalVisible(false); }}>
+              <Text style={styles.langText}>🇮🇳 हिंदी (Hindi)</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.langOptionItem} onPress={() => { setCurrentLang('EN'); setLangModalVisible(false); }}>
+              <Text style={styles.langText}>🇬🇧 English</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.modalCloseBtn} onPress={() => setLangModalVisible(false)}>
+              <Text style={styles.modalCloseText}>बंद करें</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
+      <Modal visible={infoModalVisible} animationType="fade" transparent={true}>
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalHeading}>{modalTitle}</Text>
+            <Text style={styles.modalDescText}>{modalDesc}</Text>
+            <TouchableOpacity style={styles.modalCloseBtn} onPress={() => setInfoModalVisible(false)}>
+              <Text style={styles.modalCloseText}>ठीक है</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: '#f8fafc' },
+  header: { backgroundColor: '#1e1b4b', paddingTop: 45, paddingBottom: 15, paddingHorizontal: 20 },
+  headerTitle: { color: '#fff', fontSize: 18, fontWeight: 'bold' },
+  headerSubtitle: { color: '#cbd5e1', fontSize: 12 },
+  scrollContent: { padding: 16, paddingBottom: 100 },
+  alertBanner: { backgroundColor: '#fee2e2', padding: 14, borderRadius: 12, marginBottom: 16, borderWidth: 1, borderColor: '#f87171' },
+  alertText: { color: '#991b1b', fontWeight: 'bold', fontSize: 14, marginBottom: 4 },
+  alertSubText: { color: '#b91c1c', fontSize: 12 },
+  bonusCardBox: { backgroundColor: '#fdf4ff', padding: 16, borderRadius: 12, marginBottom: 16, borderWidth: 1, borderColor: '#f0abfc' },
+  bonusCardTitle: { fontSize: 15, fontWeight: 'bold', color: '#86198f', marginBottom: 8 },
+  bonusCardDesc: { fontSize: 13, color: '#701a75', lineHeight: 18, marginBottom: 12 },
+  bonusCardBtn: { backgroundColor: '#c026d3', padding: 12, borderRadius: 8, alignItems: 'center' },
+  bonusCardBtnText: { color: '#fff', fontWeight: 'bold', fontSize: 14 },
+  loanScamBox: { backgroundColor: '#fffbeb', padding: 16, borderRadius: 12, marginBottom: 16, borderWidth: 1, borderColor: '#fde047' },
+  loanScamTitle: { fontSize: 15, fontWeight: 'bold', color: '#b45309', marginBottom: 8 },
+  loanScamDesc: { fontSize: 13, color: '#78350f', lineHeight: 18, marginBottom: 12 },
+  loanScamBtn: { backgroundColor: '#d97706', padding: 10, borderRadius: 8, alignItems: 'center' },
+  loanScamBtnText: { color: '#fff', fontWeight: 'bold', fontSize: 13 },
+  shareCardBox: { backgroundColor: '#eff6ff', padding: 16, borderRadius: 12, marginBottom: 16, borderWidth: 1, borderColor: '#bfdbfe' },
+  shareCardTitle: { fontSize: 15, fontWeight: 'bold', color: '#1d4ed8', marginBottom: 8 },
+  shareCardDesc: { fontSize: 13, color: '#1e3a8a', lineHeight: 18, marginBottom: 12 },
+  shareCardBtn: { backgroundColor: '#2563eb', padding: 10, borderRadius: 8, alignItems: 'center' },
+  shareCardBtnText: { color: '#fff', fontWeight: 'bold', fontSize: 13 },
+  antiHackBox: { backgroundColor: '#fef2f2', padding: 16, borderRadius: 12, marginBottom: 16, borderWidth: 1, borderColor: '#fca5a5' },
+  antiHackTitle: { fontSize: 15, fontWeight: 'bold', color: '#7f1d1d', marginBottom: 8 },
+  antiHackDesc: { fontSize: 13, color: '#991b1b', lineHeight: 18, marginBottom: 12 },
+  antiHackBtn: { backgroundColor: '#dc2626', padding: 10, borderRadius: 8, alignItems: 'center' },
+  antiHackBtnText: { color: '#fff', fontWeight: 'bold', fontSize: 13 },
+  sectionHeading: { fontSize: 16, fontWeight: 'bold', color: '#1e293b', marginVertical: 12 },
+  bankGrid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', marginBottom: 16 },
+  bankCard: { width: '48%', backgroundColor: '#fff', padding: 12, borderRadius: 10, marginBottom: 10, borderWidth: 1, borderColor: '#e2e8f0' },
+  bankText: { fontWeight: 'bold', color: '#0f172a', fontSize: 13 },
+  bankSubText: { color: '#64748b', fontSize: 11, marginTop: 2 },
+  bottomNav: { flexDirection: 'row', backgroundColor: '#ffffff', height: 60, borderTopWidth: 1, borderTopColor: '#e2e8f0', justifyContent: 'space-around', alignItems: 'center', position: 'absolute', bottom: 0, left: 0, right: 0 },
+  navItem: { alignItems: 'center', justifyContent: 'center', flex: 1 },
+  navText: { fontSize: 12, color: '#64748b', fontWeight: '600' },
+  activeNavText: { color: '#2563eb', fontWeight: 'bold' },
+  centerScanBtn: { width: 50, height: 50, backgroundColor: '#2563eb', borderRadius: 25, justifyContent: 'center', alignItems: 'center', marginBottom: 15 },
+  aiScannerContainer: { backgroundColor: '#f8fafc', padding: 16, borderRadius: 12, marginBottom: 16, borderWidth: 1, borderColor: '#cbd5e1' },
+  aiScannerLabel: { fontSize: 15, fontWeight: 'bold', color: '#1e293b', marginBottom: 6 },
+  cardDescText: { fontSize: 12, color: '#475569', marginBottom: 12 },
+  aiScanBtn: { backgroundColor: '#0284c7', padding: 10, borderRadius: 8, alignItems: 'center' },
+  aiScanBtnText: { color: '#fff', fontWeight: 'bold', fontSize: 13 },
+  scannerBox: { backgroundColor: '#f0fdf4', padding: 16, borderRadius: 12, borderWidth: 1, borderColor: '#bbf7d0' },
+  scannerTitle: { fontSize: 16, fontWeight: 'bold', color: '#166534', marginBottom: 8 },
+  scannerDesc: { fontSize: 13, color: '#14532d', lineHeight: 18, marginBottom: 14 },
+  pickImgBtn: { backgroundColor: '#22c55e', padding: 12, borderRadius: 8, alignItems: 'center' },
+  pickImgText: { color: '#fff', fontWeight: 'bold', fontSize: 14 },
+  familyBox: { backgroundColor: '#faf5ff', padding: 16, borderRadius: 12, marginBottom: 16, borderWidth: 1, borderColor: '#e9d5ff' },
+  familyTitle: { fontSize: 15, fontWeight: 'bold', color: '#6b21a8', marginBottom: 8 },
+  familyDesc: { fontSize: 13, color: '#581c87', lineHeight: 18, marginBottom: 12 },
+  familyBtn: { backgroundColor: '#9333ea', padding: 10, borderRadius: 8, alignItems: 'center' },
+  familyBtnText: { color: '#fff', fontWeight: 'bold', fontSize: 13 },
+  languageMainBtn: { backgroundColor: '#fff', padding: 16, borderRadius: 12, marginBottom: 12, borderWidth: 1, borderColor: '#cbd5e1', flexDirection: 'row', alignItems: 'center' },
+  langMainTitle: { fontSize: 15, fontWeight: 'bold', color: '#1e293b' },
+  langMainSub: { fontSize: 12, color: '#64748b', marginTop: 2 },
+  modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'center', alignItems: 'center', padding: 20 },
+  modalContent: { backgroundColor: '#fff', width: '100%', padding: 20, borderRadius: 16, alignItems: 'center' },
+  modalHeading: { fontSize: 18, fontWeight: 'bold', color: '#1e293b', marginBottom: 12, textAlign: 'center' },
+  modalDescText: { fontSize: 14, color: '#475569', textAlign: 'center', marginBottom: 20, lineHeight: 20 },
+  langOptionItem: { width: '100%', padding: 12, backgroundColor: '#f1f5f9', borderRadius: 8, marginBottom: 8, alignItems: 'center' },
+  langText: { fontSize: 15, fontWeight: 'bold', color: '#334155' },
+  modalCloseBtn: { backgroundColor: '#2563eb', paddingVertical: 10, paddingHorizontal: 30, borderRadius: 8, marginTop: 10 },
+  modalCloseText: { color: '#fff', fontWeight: 'bold', fontSize: 14 }
+});

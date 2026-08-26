@@ -17,7 +17,5 @@
   "devDependencies": {
     "@babel/core": "^7.20.0"
   },
-  "expo": {
-    "bundler": "metro"
-  }
+  "private": true
 }

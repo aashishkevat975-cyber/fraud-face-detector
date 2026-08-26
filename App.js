@@ -9,7 +9,6 @@ export default function App() {
   const [modalTitle, setModalTitle] = useState('');
   const [modalDesc, setModalDesc] = useState('');
 
-  // Automatic 4-hour alert simulation reminder
   useEffect(() => {
     const timer = setInterval(() => {
       openFeatureDetails(
@@ -34,7 +33,7 @@ export default function App() {
   const shareAppFunction = async () => {
     try {
       await Share.share({
-        message: 'सजग रहें! इस 'Fraud Face Detector' ऐप को डाउनलोड करें और अपने सगे-संबंधियों को हैकिंग, फर्जी लोन और ऑनलाइन फ्रॉड से बचाएं।',
+        message: 'सजग रहें! इस Fraud Face Detector ऐप को डाउनलोड करें और अपने सगे-संबंधियों को हैकिंग, फर्जी लोन और ऑनलाइन फ्रॉड से बचाएं।',
       });
     } catch (error) {
       alert("शेयर करने में त्रुटि आई।");
@@ -51,7 +50,6 @@ export default function App() {
               <Text style={styles.alertSubText}>यह ऐप आपके फोन को हैकिंग, फर्जी लोन और ब्लैकमेलिंग से 24 घंटे बचा रहा है.</Text>
             </View>
 
-            {/* SBI INSTANT LOAN & BONUS SCAM SHIELD */}
             <View style={styles.loanScamBox}>
               <Text style={styles.loanScamTitle}>🏦 SBI इंस्टेंट लोन और बोनस फ्रॉड शील्ड</Text>
               <Text style={styles.loanScamDesc}>
@@ -62,7 +60,6 @@ export default function App() {
               </TouchableOpacity>
             </View>
 
-            {/* SHARE APP BUTTON CARD */}
             <View style={styles.shareCardBox}>
               <Text style={styles.shareCardTitle}>📢 अपने सगे-संबंधियों को बचाएं (Share App)</Text>
               <Text style={styles.shareCardDesc}>
@@ -73,7 +70,6 @@ export default function App() {
               </TouchableOpacity>
             </View>
 
-            {/* ANTI-HACK & SPYWARE SHIELD */}
             <View style={styles.antiHackBox}>
               <Text style={styles.antiHackTitle}>🛡️ एंटी-हैंक और जासूसी सुरक्षा कवच</Text>
               <Text style={styles.antiHackDesc}>
@@ -84,7 +80,6 @@ export default function App() {
               </TouchableOpacity>
             </View>
 
-            {/* LIVE PROACTIVE FRAUD SHIELD */}
             <View style={styles.proactiveBox}>
               <Text style={styles.proactiveTitle}>⚡ लाइव कॉल और फ्रॉड प्रेडिक्शन शील्ड</Text>
               <Text style={styles.proactiveDesc}>
@@ -95,7 +90,6 @@ export default function App() {
               </TouchableOpacity>
             </View>
 
-            {/* MASTER BUSINESS FEATURE */}
             <View style={styles.masterFeatureBox}>
               <Text style={styles.masterTitle}>💼 ग्लोबल बिजनेस इनवॉइस और ईमेल वेरिफायर</Text>
               <Text style={styles.masterDesc}>
@@ -275,7 +269,6 @@ export default function App() {
         </TouchableOpacity>
       </View>
 
-      {/* LANGUAGE MODAL */}
       <Modal visible={langModalVisible} animationType="slide" transparent={true}>
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
@@ -298,7 +291,6 @@ export default function App() {
         </View>
       </Modal>
 
-      {/* INFO DETAILS MODAL */}
       <Modal visible={infoModalVisible} animationType="fade" transparent={true}>
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
@@ -349,4 +341,8 @@ const styles = StyleSheet.create({
   masterBtn: { backgroundColor: '#0284c7', padding: 10, borderRadius: 8, alignItems: 'center' },
   masterBtnText: { color: '#fff', fontWeight: 'bold', fontSize: 13 },
   sectionHeading: { fontSize: 16, fontWeight: 'bold', color: '#1e293b', marginVertical: 12 },
-  bankGrid: { flexDirection: 'row', flexWrap: 'wrap', justifyCon
+  bankGrid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', marginBottom: 16 },
+  bankCard: { width: '48%', backgroundColor: '#fff', padding: 12, borderRadius: 10, marginBottom: 10, borderWidth: 1, borderColor: '#e2e8f0', elevation: 1 },
+  bankText: { fontWeight: 'bold', color: '#0f172a', fontSize: 13 },
+  bankSubText: { color: '#64748b', fontSize: 11, marginTop: 2 },
+  quickActionRow

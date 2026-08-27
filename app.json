@@ -1,25 +1,26 @@
 {
   "expo": {
-    "name": "Fraud Face Detector",
-    "slug": "fraud-face-detector",
+    "name": "Global Fraud Shield",
+    "slug": "global-fraud-shield",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "dark",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#090d16"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.globalfraudshield.app"
     },
     "android": {
-      "package": "com.aashish.fraudfacedetector",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
+        "backgroundColor": "#090d16"
+      },
+      "package": "com.globalfraudshield.app"
     },
     "web": {
       "favicon": "./assets/favicon.png"

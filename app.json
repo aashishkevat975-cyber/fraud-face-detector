@@ -11,7 +11,11 @@
       "bundleIdentifier": "com.globalfraudshield.app"
     },
     "android": {
-      "package": "com.globalfraudshield.app"
+      "package": "com.globalfraudshield.app",
+      "splash": {
+        "image": null,
+        "backgroundColor": "#090d16"
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"

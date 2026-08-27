@@ -2,6 +2,7 @@
   "expo": {
     "name": "Global Fraud Shield",
     "slug": "FraudFaceDetector",
+    "owner": "aashishkevat700s-team",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

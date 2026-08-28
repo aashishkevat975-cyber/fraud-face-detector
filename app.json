@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Global Fraud Shield",
+    "name": "Kavach AI",
     "slug": "fraud-face-detector-nnkfcr",
     "owner": "aashishkevat700s-team",
     "version": "1.0.0",
@@ -22,7 +22,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "a448bb28-2bef-4813-84d2-2b0319b3f304"
+        "projectId": "a448bb28-2bef-4813-84d2-2b0319b3f3f5"
       }
     },
     "sdkVersion": "51.0.0",
@@ -30,6 +30,14 @@
       "ios",
       "android",
       "web"
+    ],
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app needs access to your gallery to scan for fraud faces and deepfakes."
+        }
+      ]
     ]
   }
 }

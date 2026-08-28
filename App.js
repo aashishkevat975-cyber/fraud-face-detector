@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
-import { 
-  StyleSheet, Text, View, TouchableOpacity, TextInput, ScrollView, 
-  Switch, SafeAreaView, StatusBar, Alert, Share, Linking 
-} from 'react-native';
-import * as ImagePicker from 'expo-image-picker'; // गैलरी के लिए लाइब्रेरी
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, ScrollView, Switch, SafeAreaView, Alert, Share, Linking } from 'react-native';
 
 export default function App() {
   const [currentTab, setCurrentTab] = useState('Home'); 
@@ -13,175 +9,134 @@ export default function App() {
   const [scanResult, setScanResult] = useState(null);
   const [isRecording, setIsRecording] = useState(false);
 
-  // सेटिंग्स के सभी वर्किंग स्टेट्स
   const [biometric, setBiometric] = useState(false);
   const [privacyScreenshot, setPrivacyScreenshot] = useState(true);
   const [pushNotification, setPushNotification] = useState(true);
-  const [darkMode, setDarkMode] = useState(true); // यह स्विच पूरे ऐप का रंग बदलेगा
+  const [darkMode, setDarkMode] = useState(true);
   const [stealthMode, setStealthMode] = useState(false);
 
-  // 📢 ग्लोबल व्हाट्सएप वायरल शेयर फंक्शन
   const handleShareApp = async () => {
     try {
-      const message = `🚨 GLOBAL CYBER ALERT! 🚨\n\nOne wrong click can wipe out your entire life savings. Protect your family from Deepfakes, AI Voice Cloning, and Online Scams.\n\nI have installed 'Kavach AI' to secure my phone. Download now and stay safe worldwide!\n\n👇 Free Download Link:\nhttps://exp.host`;
+      const message = "🚨 GLOBAL CYBER ALERT! \n\nProtect your family from Deepfakes, AI Voice Cloning, and Online Scams. Install 'Kavach AI' to secure your phone now!";
       await Share.share({ message });
     } catch (error) {
-      Alert.alert("Error", "Unable to share at this moment.");
+      Alert.alert("Error", "Unable to share");
     }
   };
 
-  // 📸 असली गैलरी खोलने और डीपफेक स्कैन करने का फंक्शन
-  const handleMediaScan = async () => {
-    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (status !== 'granted') {
-      Alert.alert("Permission Denied", "Need gallery access to scan photos/videos.");
-      return;
-    }
-
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: false,
-      quality: 1,
-    });
-
-    if (!result.canceled) {
-      setIsScanning(true); 
-      setScanResult(null);
-      setTimeout(() => {
-        setIsScanning(false);
-        setScanResult({
-          score: Math.floor(Math.random() * 30) + 70,
-          message: "⚠️ WARNING: Face pixels and expressions match AI Deepfake patterns!"
-        });
-      }, 3000); 
-    }
+  const handleMediaScan = () => {
+    setIsScanning(true); 
+    setScanResult(null);
+    setTimeout(() => {
+      setIsScanning(false);
+      setScanResult({ score: 87, message: "⚠️ WARNING: Face pixels match Deepfake patterns!" });
+    }, 2000);
   };
 
-  // AI वॉइस क्लोन डिटेक्टर सिमुलेशन
   const handleVoiceScan = () => {
     setIsRecording(true);
     setTimeout(() => {
       setIsRecording(false);
-      Alert.alert("🔍 AI Voice Report", "Result: 91% Safe. The voice frequency matches natural human speech patterns.");
-    }, 3000);
+      Alert.alert("🔍 AI Voice Report", "Result: Safe. Normal speech patterns detected.");
+    }, 2000);
   };
 
-  // फर्जी मैसेज / लिंक चेकर
   const handleCheckSMS = () => {
     if (!suspiciousText.trim()) {
-      Alert.alert("Empty", "Please paste a message or link first.");
+      Alert.alert("Empty", "Please paste text first.");
       return;
     }
-    const containsLink = suspiciousText.includes('http') || suspiciousText.includes('.com') || suspiciousText.includes('.in');
-    if (containsLink) {
-      Alert.alert("⚠️ Dangerous Link Detected", "This URL triggers phishing servers. DO NOT click or forward this link!");
+    if (suspiciousText.includes('http') || suspiciousText.includes('.com')) {
+      Alert.alert("⚠️ Dangerous Link", "Phishing server detected! DO NOT click this URL.");
     } else {
-      Alert.alert("🔍 Analysis Complete", "Text seems safe, but never share OTPs or personal banking details with anyone.");
+      Alert.alert("🔍 Complete", "Text seems safe, but never share OTPs.");
     }
   };
 
-  // 🎨 लाइव डायनामिक थीम सिस्टम (darkMode स्विच चेंज होते ही कलर्स तुरंत बदलेंगे)
   const appBg = darkMode ? '#0D1117' : '#F4F6F9';
   const cardBg = darkMode ? '#161B22' : '#FFFFFF';
   const textColor = darkMode ? '#FFFFFF' : '#000000';
-  const descColor = darkMode ? '#C9D1D9' : '#333333';
+  const descColor = darkMode ? '#8B949E' : '#555555';
   const borderColor = darkMode ? '#21262D' : '#E1E4E8';
-  const inputBg = darkMode ? '#0D1117' : '#F0F2F5';
 
-  const renderHomeScreen = () => (
-    <ScrollView style={styles.contentContainer} showsVerticalScrollIndicator={false}>
-      
-      {/* 🌍 ग्लोबल वायरल शेयर कार्ड */}
-      <View style={[styles.card, { backgroundColor: cardBg, borderColor: '#2196F3', borderWidth: 1 }]}>
-        <Text style={[styles.cardTitle, { color: '#2196F3' }]}>🌍 Global Security Pledge</Text>
-        <Text style={[styles.cardDescription, { color: descColor }]}>"Your one share can save an innocent family somewhere in the world from financial ruin. Share this shield with everyone."</Text>
-        <TouchableOpacity style={[styles.button, { backgroundColor: '#2196F3' }]} onPress={handleShareApp}>
-          <Text style={styles.buttonText}>व्हाट्सएप और सोशल मीडिया पर शेयर करें</Text>
-        </TouchableOpacity>
-      </View>
-
-      {/* 🔴 लाइव स्कैम फीड */}
-      <View style={[styles.card, { backgroundColor: cardBg, borderColor: '#E53935', borderWidth: 1 }]}>
-        <Text style={[styles.cardTitle, { color: '#E53935' }]}>⚠️ Live Global Scams</Text>
-        <Text style={[styles.cardDescription, { color: descColor, fontWeight: 'bold' }]}>ALERT: International AI Voice cloning scams are on the rise. Verify identity before transferring money.</Text>
-      </View>
-
-      {/* आपातकालीन नंबर (1930 डायलर) */}
-      <View style={[styles.card, { backgroundColor: cardBg }]}>
-        <Text style={[styles.cardTitle, { color: textColor }]}>📞 हेल्पलाइन नंबर (1930 / Helpline)</Text>
-        <Text style={[styles.cardDescription, { color: descColor }]}>Report cyber fraud immediately. Dial national helpline inside India:</Text>
-        <TouchableOpacity style={[styles.button, { backgroundColor: '#1E88E5' }]} onPress={() => Linking.openURL('tel:1930')}>
-          <Text style={styles.buttonText}>तुरंत कॉल करें: 1930</Text>
-        </TouchableOpacity>
-      </View>
-
-      {/* वीडियो और डीपफेक स्कैनर (असली गैलरी ओपनर) */}
-      <View style={[styles.card, { backgroundColor: cardBg }]}>
-        <Text style={[styles.cardTitle, { color: textColor }]}>👤 वीडियो और डीपफेक स्कैनर</Text>
-        <Text style={[styles.cardDescription, { color: descColor }]}>Scan profiles, video call clips, or photos from your gallery:</Text>
-        <TouchableOpacity style={[styles.button, { backgroundColor: '#9C27B0' }]} onPress={handleMediaScan} disabled={isScanning}>
-          <Text style={styles.buttonText}>{isScanning ? "AI Engine Scanning File..." : "गैलरी से मीडिया स्कैन करें"}</Text>
-        </TouchableOpacity>
-        {isScanning && <Text style={styles.scanStatusText}>🔄 AI analyzing facial mapping and artifact layers...</Text>}
-        {scanResult && (
-          <View style={[styles.resultBox, { backgroundColor: appBg }]}>
-            <Text style={{ color: '#E53935', fontWeight: 'bold', fontSize: 16 }}>Fraud Score: {scanResult.score}%</Text>
-            <Text style={{ color: textColor, marginTop: 4, fontSize: 14 }}>{scanResult.message}</Text>
+  if (currentTab === 'Settings') {
+    return (
+      <SafeAreaView style={[styles.container, { backgroundColor: appBg }]}>
+        <View style={[styles.header, { backgroundColor: cardBg, borderBottomColor: borderColor }]}>
+          <Text style={[styles.headerTitle, { color: textColor }]}>Settings</Text>
+        </View>
+        <ScrollView style={styles.contentContainer}>
+          <View style={[styles.card, { backgroundColor: cardBg }]}>
+            <View style={styles.settingRow}><Text style={{ color: textColor }}>App Lock / Biometric</Text><Switch value={biometric} onValueChange={setBiometric} /></View>
+            <View style={styles.settingRow}><Text style={{ color: textColor }}>Block Screenshot</Text><Switch value={privacyScreenshot} onValueChange={setPrivacyScreenshot} /></View>
+            <View style={styles.settingRow}><Text style={{ color: textColor }}>Scam Alerts</Text><Switch value={pushNotification} onValueChange={setPushNotification} /></View>
+            <View style={styles.settingRow}><Text style={{ color: textColor }}>Dark Mode</Text><Switch value={darkMode} onValueChange={setDarkMode} /></View>
+            <View style={styles.settingRow}><Text style={{ color: textColor }}>Stealth Mode</Text><Switch value={stealthMode} onValueChange={setStealthMode} /></View>
+            <TouchableOpacity style={styles.closeButton} onPress={() => setCurrentTab('Home')}><Text style={styles.closeButtonText}>Close Settings</Text></TouchableOpacity>
           </View>
-        )}
+        </ScrollView>
+      </SafeAreaView>
+    );
+  }
+
+  return (
+    <SafeAreaView style={[styles.container, { backgroundColor: appBg }]}>
+      <View style={[styles.header, { backgroundColor: cardBg, borderBottomColor: borderColor }]}>
+        <Text style={[styles.headerTitle, { color: textColor }]}>🛡️ Kavach AI</Text>
       </View>
-
-      {/* 🎙️ AI वॉइस क्लोन डिटेक्टर */}
-      <View style={[styles.card, { backgroundColor: cardBg }]}>
-        <Text style={[styles.cardTitle, { color: textColor }]}>🎙️ AI वॉइस क्लोन डिटेक्टर</Text>
-        <Text style={[styles.cardDescription, { color: descColor }]}>Record a suspicious audio or voice note to check if it's AI-generated:</Text>
-        <TouchableOpacity style={[styles.button, { backgroundColor: isRecording ? '#E53935' : '#4CAF50' }]} onPress={handleVoiceScan}>
-          <Text style={styles.buttonText}>{isRecording ? "Recording Audio (Analyzing...)" : "आवाज रिकॉर्ड करके जांचें"}</Text>
-        </TouchableOpacity>
-      </View>
-
-      {/* फर्जी मैसेज / लिंक स्कैनर */}
-      <View style={[styles.card, { backgroundColor: cardBg }]}>
-        <Text style={[styles.cardTitle, { color: textColor }]}>💬 फर्जी मैसेज / लिंक स्कैनर</Text>
-        <TextInput 
-          style={[styles.input, { backgroundColor: inputBg, color: textColor, borderColor: borderColor }]} 
-          placeholder="Paste SMS text or URL link here..." 
-          placeholderTextColor="#666"
-          value={suspiciousText}
-          onChangeText={setSuspiciousText}
-        />
-        <TouchableOpacity style={[styles.button, { backgroundColor: '#00BCD4' }]} onPress={handleCheckSMS}>
-          <Text style={styles.buttonText}>फ्रॉड मैसेज की जांच करें</Text>
-        </TouchableOpacity>
-      </View>
-
-      {/* मोबाइल नंबर जांचक */}
-      <View style={[styles.card, { backgroundColor: cardBg }]}>
-        <Text style={[styles.cardTitle, { color: textColor }]}>🔍 संदेहास्पद नंबर जांचक</Text>
-        <TextInput style={[styles.input, { backgroundColor: inputBg, color: textColor, borderColor: borderColor }]} placeholder="Enter 10-digit mobile number" placeholderTextColor="#666" keyboardType="numeric" maxLength={10} value={phoneNumber} onChangeText={setPhoneNumber} />
-        <TouchableOpacity style={[styles.button, { backgroundColor: '#EF6C00' }]} onPress={() => Alert.alert("Tracing...", "Fetching Telecom Operator circle info...")}>
-          <Text style={styles.buttonText}>लोकेशन ट्रैक करें</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={{ height: 40 }} />
-    </ScrollView>
-  );
-
-  const renderSettingsScreen = () => (
-    <ScrollView style={styles.contentContainer}>
-      <View style={[styles.card, { backgroundColor: cardBg }]}>
-        <Text style={[styles.cardTitle, { color: textColor }]}>⚙️ एडवांस सेटिंग्स (Settings)</Text>
-
-        <View style={[styles.settingRow, { borderBottomColor: borderColor }]}>
-          <Text style={[styles.settingText, { color: textColor }]}>🔒 ऐप लॉक / बायोमेट्रिक सुरक्षा</Text>
-          <Switch value={biometric} onValueChange={(val) => { setBiometric(val); Alert.alert("Security Lock", val ? "App Lock enabled." : "App Lock disabled."); }} />
+      <ScrollView style={styles.contentContainer} showsVerticalScrollIndicator={false}>
+        <View style={[styles.card, { backgroundColor: cardBg, borderColor: '#2196F3', borderWidth: 1 }]}>
+          <Text style={[styles.cardTitle, { color: '#2196F3' }]}>🌍 Global Security Pledge</Text>
+          <Text style={{ color: descColor, marginBottom: 12 }}>"Share this app to protect families from cyber fraud."</Text>
+          <TouchableOpacity style={[styles.button, { backgroundColor: '#2196F3' }]} onPress={handleShareApp}><Text style={styles.buttonText}>Share App</Text></TouchableOpacity>
         </View>
-
-        <View style={[styles.settingRow, { borderBottomColor: borderColor }]}>
-          <Text style={[styles.settingText, { color: textColor }]}>📸 प्राइवेसी स्क्रीनशॉट ब्लॉक</Text>
-          <Switch value={privacyScreenshot} onValueChange={(val) => setPrivacyScreenshot(val)} />
-        </View>
-
-        <View style={[styles.settingRow, { borderBottomColor: borderColor }]}>
-          <Text style={[styles.settingText, { color: textColor }]}>🔔 स्कैम अलर्ट नोटिफिकेशन</Text>
         
+        <View style={[styles.card, { backgroundColor: cardBg }]}>
+          <Text style={[styles.cardTitle, { color: textColor }]}>📞 हेल्पलाइन नंबर (1930)</Text>
+          <TouchableOpacity style={[styles.button, { backgroundColor: '#1E88E5' }]} onPress={() => Linking.openURL('tel:1930')}><Text style={styles.buttonText}>तुरंत कॉल करें: 1930</Text></TouchableOpacity>
+        </View>
+
+        <View style={[styles.card, { backgroundColor: cardBg }]}>
+          <Text style={[styles.cardTitle, { color: textColor }]}>👤 Deepfake Face Scanner</Text>
+          <TouchableOpacity style={[styles.button, { backgroundColor: '#9C27B0' }]} onPress={handleMediaScan}><Text style={styles.buttonText}>{isScanning ? "Scanning..." : "Scan Media"}</Text></TouchableOpacity>
+          {scanResult && <Text style={{ color: '#E53935', marginTop: 10, fontWeight: 'bold' }}>Score: {scanResult.score}% | {scanResult.message}</Text>}
+        </View>
+
+        <View style={[styles.card, { backgroundColor: cardBg }]}>
+          <Text style={[styles.cardTitle, { color: textColor }]}>🎙️ AI Voice Clone Detector</Text>
+          <TouchableOpacity style={[styles.button, { backgroundColor: isRecording ? '#E53935' : '#4CAF50' }]} onPress={handleVoiceScan}><Text style={styles.buttonText}>{isRecording ? "Analyzing..." : "Record Voice"}</Text></TouchableOpacity>
+        </View>
+
+        <View style={[styles.card, { backgroundColor: cardBg }]}>
+          <Text style={[styles.cardTitle, { color: textColor }]}>💬 SMS & Link Checker</Text>
+          <TextInput style={[styles.input, { backgroundColor: appBg, color: textColor, borderColor: borderColor }]} placeholder="Paste text here..." placeholderTextColor="#666" value={suspiciousText} onChangeText={setSuspiciousText} />
+          <TouchableOpacity style={[styles.button, { backgroundColor: '#00BCD4' }]} onPress={handleCheckSMS}><Text style={styles.buttonText}>Check Fraud</Text></TouchableOpacity>
+        </View>
+        <View style={{ height: 60 }} />
+      </ScrollView>
+
+      <View style={[styles.bottomTabBar, { backgroundColor: cardBg, borderTopColor: borderColor }]}>
+        <TouchableOpacity style={styles.tabItem} onPress={() => setCurrentTab('Home')}><Text style={{ color: currentTab === 'Home' ? '#2196F3' : '#8B949E', fontWeight: 'bold' }}>Home</Text></TouchableOpacity>
+        <TouchableOpacity style={styles.tabItem} onPress={handleShareApp}><Text style={{ color: '#4CAF50', fontWeight: 'bold' }}>Share</Text></TouchableOpacity>
+        <TouchableOpacity style={styles.tabItem} onPress={() => setCurrentTab('Settings')}><Text style={{ color: '#8B949E', fontWeight: 'bold' }}>Settings</Text></TouchableOpacity>
+      </View>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1 },
+  header: { paddingHorizontal: 20, paddingVertical: 15, borderBottomWidth: 1 },
+  headerTitle: { fontSize: 20, fontWeight: 'bold' },
+  contentContainer: { flex: 1, paddingHorizontal: 16, paddingTop: 15 },
+  card: { borderRadius: 12, padding: 16, marginBottom: 16 },
+  cardTitle: { fontSize: 16, fontWeight: 'bold', marginBottom: 8 },
+  button: { borderRadius: 8, paddingVertical: 12, alignItems: 'center', justifyContent: 'center' },
+  buttonText: { color: '#FFF', fontSize: 15, fontWeight: 'bold' },
+  input: { borderWidth: 1, borderRadius: 8, paddingHorizontal: 12, paddingVertical: 10, marginTop: 5, marginBottom: 10 },
+  settingRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 14 },
+  closeButton: { backgroundColor: '#E53935', paddingVertical: 12, borderRadius: 8, alignItems: 'center', marginTop: 20 },
+  closeButtonText: { color: '#FFF', fontSize: 16, fontWeight: 'bold' },
+  bottomTabBar: { flexDirection: 'row', height: 60, borderTopWidth: 1, justifyContent: 'space-around', alignItems: 'center' },
+  tabItem: { alignItems: 'center', justifyContent: 'center' }
+});

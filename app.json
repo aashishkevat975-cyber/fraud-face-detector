@@ -26,14 +26,6 @@
       "ios",
       "android",
       "web"
-    ],
-    "plugins": [
-      [
-        "expo-image-picker",
-        {
-          "photosPermission": "The app needs access to your gallery to scan for fraud faces and deepfakes."
-        }
-      ]
     ]
   }
 }

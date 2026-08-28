@@ -2,6 +2,7 @@
   "expo": {
     "name": "Kavach AI",
     "slug": "kavach-ai",
+    "owner": "aashishkevat700s-team",
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "dark",
@@ -14,6 +15,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "a448bb28-2bef-4813-84d2-2b0319b3f304"
+      }
     },
     "sdkVersion": "51.0.0",
     "platforms": [

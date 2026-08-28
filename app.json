@@ -9,6 +9,15 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.globalfraudshield.app"
+    },
+    "android": {
+      "package": "com.globalfraudshield.app"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
         "projectId": "a448bb28-2bef-4813-84d2-2b0319b3f304"
       }
     },

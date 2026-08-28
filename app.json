@@ -16,6 +16,10 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
+    "splash": {
+      "backgroundColor": "#0D1117",
+      "resizeMode": "contain"
+    },
     "extra": {
       "eas": {
         "projectId": "a448bb28-2bef-4813-84d2-2b0319b3f304"
